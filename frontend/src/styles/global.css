@@ -1,0 +1,57 @@
+.carousel-section {
+  padding: 80px 24px;
+  text-align: center;
+  color: white; /* texto sobre fundo verde */
+}
+
+.section-header {
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+}
+
+.badge {
+  display: inline-block;
+  background: #111;
+  color: white;
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.cta-button {
+  background-color: #58a530; /* verde secundário */
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 40px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #46961d; /* verde ainda mais escuro em hover */
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: white;
+}
+
+p {
+  font-size: 18px;
+  color: #e8f0e6; /* verde mais claro para contraste */
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  min-height: 100vh;
+
+  background: linear-gradient(to bottom, #019c7c 0%, #000000 100%);
+}
