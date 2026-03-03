@@ -18,7 +18,9 @@ export default function App() {
 
       {/* CTA */}
       <div className="flex justify-center mt-20">
-        <CTAButton>TAMBÉM QUERO VENDER NA GREENN</CTAButton>
+        <CTAButton href="https://adm.greenn.com.br/registro">
+          TAMBÉM QUERO VENDER NA GREENN
+        </CTAButton>
       </div>
     </section>
   );
