@@ -4,20 +4,11 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Producer;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProducerApiTest extends TestCase
 {
     use RefreshDatabase;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $user = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-    }
 
     public function test_can_list_producers()
     {
