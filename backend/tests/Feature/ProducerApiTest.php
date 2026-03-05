@@ -19,7 +19,7 @@ class ProducerApiTest extends TestCase
         $response->assertStatus(200)
                  ->assertJsonCount(3)
                  ->assertJsonStructure([
-                     '*' => ['id', 'name', 'relevance_score'],
+                     '*' => ['id', 'name', 'relevance_score', 'direct_skyrocketing_sales', 'indirect_skyrocketing_sales'],
                  ]);
     }
 

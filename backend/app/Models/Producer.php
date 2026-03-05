@@ -26,7 +26,7 @@ class Producer extends Model
         'last_sale_value',
     ];
 
-    protected $appends = ['relevance_score'];
+    protected $appends = ['relevance_score', 'direct_skyrocketing_sales', 'indirect_skyrocketing_sales'];
 
     protected $casts = [
         'commission' => 'integer',
@@ -57,5 +57,39 @@ class Producer extends Model
             + (0.20 * $scoreTrending);
 
         return round(max(0, min(100, $score)), 1);
+    }
+
+    public function getDirectSkyrocketingSalesAttribute(): bool
+    {
+        $directSalesYear = $this->direct_sales_last_year ?? 0;
+        $directSalesMonth = $this->direct_sales_last_month ?? 0;
+
+        // If no yearly data, can't determine skyrocketing
+        if ($directSalesYear <= 0) {
+            return false;
+        }
+
+        // Calculate average monthly direct sales from yearly total
+        $averageMonthlyDirectSales = $directSalesYear / 12;
+
+        // Consider it skyrocketing if current month exceeds 150% of average monthly sales
+        return $directSalesMonth > ($averageMonthlyDirectSales * 1.5);
+    }
+
+    public function getIndirectSkyrocketingSalesAttribute(): bool
+    {
+        $indirectSalesYear = $this->indirect_sales_last_year ?? 0;
+        $indirectSalesMonth = $this->indirect_sales_last_month ?? 0;
+
+        // If no yearly data, can't determine skyrocketing
+        if ($indirectSalesYear <= 0) {
+            return false;
+        }
+
+        // Calculate average monthly indirect sales from yearly total
+        $averageMonthlyIndirectSales = $indirectSalesYear / 12;
+
+        // Consider it skyrocketing if current month exceeds 150% of average monthly sales
+        return $indirectSalesMonth > ($averageMonthlyIndirectSales * 1.5);
     }
 }
