@@ -7,6 +7,8 @@ function mapProducer(raw: any) {
     ...raw,
     imageUrl: raw.imageUrl ?? raw.image_url ?? "",
     createdAt: raw.createdAt ?? raw.created_at ?? "",
+    direct_skyrocketing_sales: raw.direct_skyrocketing_sales ?? false,
+    indirect_skyrocketing_sales: raw.indirect_skyrocketing_sales ?? false,
   };
 }
 

@@ -17,4 +17,6 @@ export interface Producer {
   direct_sales_last_month?: number;
   indirect_sales_last_month?: number;
   last_sale_value?: number;
+  direct_skyrocketing_sales?: boolean;
+  indirect_skyrocketing_sales?: boolean;
 }

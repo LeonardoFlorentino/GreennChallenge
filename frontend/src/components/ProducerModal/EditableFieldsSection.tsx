@@ -214,22 +214,6 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
           />
         </Field>
       </div>
-
-      <Field label="Último valor de venda">
-        <input
-          type="text"
-          value={
-            localData.last_sale_value !== undefined
-              ? localData.last_sale_value.toLocaleString("pt-BR")
-              : ""
-          }
-          onChange={(e) => {
-            const numericValue = Number(e.target.value.replace(/\D/g, ""));
-            handleChange("last_sale_value", numericValue);
-          }}
-          className="w-full"
-        />
-      </Field>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Medal } from "lucide-react";
+import { Medal, Rocket } from "lucide-react";
 import type { Producer } from "../../types/producer";
 import { ProducerModal } from "../ProducerModal";
 import { producerService } from "../../services/producersService";
@@ -41,7 +41,13 @@ export function ProducerCard({ producer, onUpdate }: Props) {
       >
         <div className="absolute top-4 right-4 rounded-xl bg-yellow-400/15 border border-yellow-300/30 px-2.5 py-1.5 text-right">
           <div className="flex items-center justify-end gap-1.5 text-yellow-300">
-            <Medal size={14} />
+            <div className="flex items-center gap-1">
+              <Medal size={14} />
+              {(producer.direct_skyrocketing_sales ||
+                producer.indirect_skyrocketing_sales) && (
+                <Rocket size={12} className="text-orange-400" />
+              )}
+            </div>
             <span className="text-[11px] font-semibold uppercase tracking-wide">
               Score
             </span>

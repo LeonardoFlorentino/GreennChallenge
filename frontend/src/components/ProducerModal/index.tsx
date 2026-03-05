@@ -34,7 +34,6 @@ export function ProducerModal({ producer, onClose, onSuccess }: Props) {
       indirect_sales_last_year: 0,
       direct_sales_last_month: 0,
       indirect_sales_last_month: 0,
-      last_sale_value: 0,
     },
   );
 
@@ -56,7 +55,6 @@ export function ProducerModal({ producer, onClose, onSuccess }: Props) {
 
     return new Intl.DateTimeFormat("pt-BR", {
       dateStyle: "short",
-      timeStyle: "short",
     }).format(parsedDate);
   };
 
@@ -112,12 +110,18 @@ export function ProducerModal({ producer, onClose, onSuccess }: Props) {
               <h2 className="text-xl font-bold truncate">
                 {producer ? localData.name : "Novo Produtor"}
               </h2>
-              <p className="text-sm text-white/60 truncate">
+              <p
+                className="mt-0.5 font-light leading-tight tracking-[0.02em] text-slate-500 truncate"
+                style={{ fontSize: "11px" }}
+              >
                 {producer ? localData.email : "Cadastro de parceiro Greenn"}
               </p>
               {producer && (
-                <p className="text-sm text-white/45 truncate">
-                  Criado em: {formatDate(rawCreatedAt)}
+                <p
+                  className="mt-0.5 font-light leading-tight tracking-[0.02em] text-slate-600 truncate"
+                  style={{ fontSize: "10px" }}
+                >
+                  {"\u{1F4C5}"} criado em {formatDate(rawCreatedAt)}
                 </p>
               )}
             </div>
@@ -136,7 +140,7 @@ export function ProducerModal({ producer, onClose, onSuccess }: Props) {
           </div>
         </div>
 
-        <div className="flex-1 min-h-0 overflow-y-auto pr-1 pt-1">
+        <div className="flex-1 min-h-0 overflow-y-auto px-6 py-4">
           <EditableFieldsSection
             localData={localData}
             onDataChange={setLocalData}
@@ -199,10 +203,10 @@ export function ProducerModal({ producer, onClose, onSuccess }: Props) {
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
           <div className="w-full max-w-md rounded-2xl border border-white/10 bg-gray-900 p-6 shadow-2xl">
             <h3 className="text-lg font-semibold text-white">
-              Confirmar exclusão
+              Confirmar exclus�o
             </h3>
             <p className="mt-2 text-sm text-white/70">
-              Esta ação remove o produtor permanentemente. Deseja continuar?
+              Esta a��o remove o produtor permanentemente. Deseja continuar?
             </p>
 
             <div className="mt-6 flex w-full items-center">
