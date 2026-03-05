@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react"; // assuming you use lucide-react
+import { ArrowLeft } from "lucide-react";
 
 interface LeftArrowButtonProps {
   to: string;
-  children?: React.ReactNode;
+  floating?: boolean;
+  shrinkOnScroll?: boolean;
+  className?: string;
 }
 
-export function LeftArrowButton({ to }: LeftArrowButtonProps) {
+export function LeftArrowButton({
+  to,
+  floating = true,
+  shrinkOnScroll = true,
+  className = "",
+}: LeftArrowButtonProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const shouldShrink = floating && shrinkOnScroll && isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,22 +35,25 @@ export function LeftArrowButton({ to }: LeftArrowButtonProps) {
     <Link
       to={to}
       className={`
-        fixed
-        top-4
-        right-4
-        z-50
-        bg-gray-900
-        hover:bg-gray-800
-        text-white
+        ${floating ? "fixed top-4 right-4 z-50" : ""}
+        inline-flex
+        items-center
+        justify-center
         rounded-xl
+        border
+        border-white/15
+        bg-slate-950/60
+        text-white/90
         shadow-lg
+        backdrop-blur
         transition-all
         duration-300
         hover:-translate-y-0.5
-        flex
-        items-center
-        justify-center
-        ${isScrolled ? "p-3" : "px-5 py-2.5"}
+        hover:bg-slate-900/80
+        text-sm
+        font-medium
+        ${shouldShrink ? "p-3" : "px-5 py-2.5"}
+        ${className}
       `}
     >
       <ArrowLeft size={18} />
@@ -51,7 +62,7 @@ export function LeftArrowButton({ to }: LeftArrowButtonProps) {
           transition-all
           duration-300
           overflow-hidden
-          ${isScrolled ? "max-w-0 opacity-0" : "max-w-xs opacity-100 ml-2"}
+          ${shouldShrink ? "max-w-0 opacity-0" : "max-w-xs opacity-100 ml-2"}
         `}
       >
         Voltar
