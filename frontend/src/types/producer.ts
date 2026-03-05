@@ -11,4 +11,10 @@ export interface Producer {
   followers_instagram: number;
   relevance_score: number;
   is_trending: boolean;
+  category?: string;
+  direct_sales_last_year?: number;
+  indirect_sales_last_year?: number;
+  direct_sales_last_month?: number;
+  indirect_sales_last_month?: number;
+  last_sale_value?: number;
 }

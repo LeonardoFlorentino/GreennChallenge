@@ -29,11 +29,20 @@ export function ProducerModal({ producer, onClose, onSuccess }: Props) {
       followers_instagram: 0,
       relevance_score: 0,
       is_trending: false,
+      category: "",
+      direct_sales_last_year: 0,
+      indirect_sales_last_year: 0,
+      direct_sales_last_month: 0,
+      indirect_sales_last_month: 0,
+      last_sale_value: 0,
     },
   );
 
   const localDataWithLegacyDate = localData as ProducerWithLegacyDate;
-  const producerWithLegacyDate = producer as ProducerWithLegacyDate | null | undefined;
+  const producerWithLegacyDate = producer as
+    | ProducerWithLegacyDate
+    | null
+    | undefined;
   const rawCreatedAt =
     localData.createdAt ??
     localDataWithLegacyDate.created_at ??

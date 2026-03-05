@@ -137,6 +137,99 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
           className="w-full"
         />
       </Field>
+
+      <Field label="Categoria">
+        <input
+          type="text"
+          value={localData.category ?? ""}
+          onChange={(e) => handleChange("category", e.target.value)}
+          className="w-full"
+        />
+      </Field>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <Field label="Vendas Diretas (último ano)">
+          <input
+            type="text"
+            value={
+              localData.direct_sales_last_year !== undefined
+                ? localData.direct_sales_last_year.toLocaleString("pt-BR")
+                : ""
+            }
+            onChange={(e) => {
+              const numericValue = Number(e.target.value.replace(/\D/g, ""));
+              handleChange("direct_sales_last_year", numericValue);
+            }}
+            className="w-full"
+          />
+        </Field>
+
+        <Field label="Vendas Indiretas (último ano)">
+          <input
+            type="text"
+            value={
+              localData.indirect_sales_last_year !== undefined
+                ? localData.indirect_sales_last_year.toLocaleString("pt-BR")
+                : ""
+            }
+            onChange={(e) => {
+              const numericValue = Number(e.target.value.replace(/\D/g, ""));
+              handleChange("indirect_sales_last_year", numericValue);
+            }}
+            className="w-full"
+          />
+        </Field>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <Field label="Vendas Diretas (último mês)">
+          <input
+            type="text"
+            value={
+              localData.direct_sales_last_month !== undefined
+                ? localData.direct_sales_last_month.toLocaleString("pt-BR")
+                : ""
+            }
+            onChange={(e) => {
+              const numericValue = Number(e.target.value.replace(/\D/g, ""));
+              handleChange("direct_sales_last_month", numericValue);
+            }}
+            className="w-full"
+          />
+        </Field>
+
+        <Field label="Vendas Indiretas (último mês)">
+          <input
+            type="text"
+            value={
+              localData.indirect_sales_last_month !== undefined
+                ? localData.indirect_sales_last_month.toLocaleString("pt-BR")
+                : ""
+            }
+            onChange={(e) => {
+              const numericValue = Number(e.target.value.replace(/\D/g, ""));
+              handleChange("indirect_sales_last_month", numericValue);
+            }}
+            className="w-full"
+          />
+        </Field>
+      </div>
+
+      <Field label="Último valor de venda">
+        <input
+          type="text"
+          value={
+            localData.last_sale_value !== undefined
+              ? localData.last_sale_value.toLocaleString("pt-BR")
+              : ""
+          }
+          onChange={(e) => {
+            const numericValue = Number(e.target.value.replace(/\D/g, ""));
+            handleChange("last_sale_value", numericValue);
+          }}
+          className="w-full"
+        />
+      </Field>
     </div>
   );
 }
