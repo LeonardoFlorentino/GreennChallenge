@@ -18,6 +18,12 @@ class Producer extends Model
         'imageUrl',
         'followers_instagram',
         'relevance_score',
-        'is_trending'
+        'is_trending',
+        'category',
+        'direct_sales_last_year',
+        'indirect_sales_last_year',
+        'direct_sales_last_month',
+        'indirect_sales_last_month',
+        'last_sale_value',
     ];
 }

@@ -26,6 +26,17 @@ public function definition(): array
         'followers_instagram' => fake()->numberBetween(1000, 1000000),
         'relevance_score' => fake()->randomFloat(2, 0, 100),
         'is_trending' => fake()->boolean(),
+        'category' => fake()->randomElement([
+            'Marketing Digital',
+            'Financas',
+            'Saude',
+            'Negocios',
+        ]),
+        'direct_sales_last_year' => fake()->numberBetween(100000, 100000000),
+        'indirect_sales_last_year' => fake()->numberBetween(100000, 100000000),
+        'direct_sales_last_month' => fake()->numberBetween(10000, 10000000),
+        'indirect_sales_last_month' => fake()->numberBetween(10000, 10000000),
+        'last_sale_value' => fake()->numberBetween(1000, 20000000),
     ];
 }
 }

@@ -32,6 +32,12 @@ class ProducerApiTest extends TestCase
             'followers_instagram' => 100000,
             'relevance_score' => 80.5,
             'is_trending' => false,
+            'category' => 'Marketing Digital',
+            'direct_sales_last_year' => 19500000,
+            'indirect_sales_last_year' => 13400000,
+            'direct_sales_last_month' => 720000,
+            'indirect_sales_last_month' => 450000,
+            'last_sale_value' => 185000,
         ];
 
         $response = $this->postJson('/api/v1/producers', $data);

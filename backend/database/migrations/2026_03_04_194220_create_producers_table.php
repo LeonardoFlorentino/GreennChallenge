@@ -22,6 +22,12 @@ return new class extends Migration
                 $table->integer('followers_instagram');
                 $table->float('relevance_score');
                 $table->boolean('is_trending')->default(false);
+                $table->string('category');
+                $table->unsignedBigInteger('direct_sales_last_year');
+                $table->unsignedBigInteger('indirect_sales_last_year');
+                $table->unsignedBigInteger('direct_sales_last_month');
+                $table->unsignedBigInteger('indirect_sales_last_month');
+                $table->unsignedBigInteger('last_sale_value');
                 $table->timestamps();
             });
     }
