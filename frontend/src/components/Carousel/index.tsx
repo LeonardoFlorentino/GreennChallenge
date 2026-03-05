@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { getProducers } from "../../services/producersService";
+import { producerService } from "../../services/producersService";
 import type { Producer } from "../../types/producer";
 import { Card } from "../Card";
 import { SkeletonCard } from "../SkeletonCard";
+
+const sortByScoreDesc = (items: Producer[]) =>
+  [...items].sort((a, b) => b.relevance_score - a.relevance_score);
 
 export const Carousel = () => {
   const [producers, setProducers] = useState<Producer[]>([]);
@@ -20,10 +23,10 @@ export const Carousel = () => {
 
   useEffect(() => {
     const fetchProducers = async () => {
-      const data = await getProducers();
+      const data = await producerService.getAll();
 
       const validated = await Promise.all(
-        data.map(async (producer) => {
+        data.map(async (producer: Producer) => {
           const isValid = await validateImage(producer.imageUrl);
           return isValid ? producer : null;
         }),
@@ -31,7 +34,7 @@ export const Carousel = () => {
 
       const filtered = validated.filter(Boolean) as Producer[];
 
-      setProducers(filtered);
+      setProducers(sortByScoreDesc(filtered));
       setLoading(false);
     };
 

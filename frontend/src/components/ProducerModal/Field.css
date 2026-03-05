@@ -61,7 +61,6 @@
 .field-input input[type="password"],
 .field-input input[type="date"],
 .field-input input[type="number"],
-.field-input select,
 .field-input textarea {
   background: transparent;
   border: none;
@@ -94,9 +93,131 @@
 }
 
 .field-input input::placeholder,
-.field-input select::placeholder,
 .field-input textarea::placeholder {
   color: rgba(255, 255, 255, 0.3);
+}
+
+.status-select {
+  position: relative;
+  width: 100%;
+}
+
+.status-field {
+  transition: margin-bottom 0.18s ease;
+}
+
+.status-field.open {
+  margin-bottom: 3.25rem;
+}
+
+.status-select-trigger {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.95);
+  font: inherit;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0.22rem 0;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.status-select-trigger.is-open {
+  color: #e2fff5;
+}
+
+.status-select-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-left: 0.75rem;
+}
+
+.status-select-divider {
+  width: 1px;
+  height: 1.15rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.status-select-chevron {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-right: 2px solid rgba(255, 255, 255, 0.65);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.65);
+  transform: rotate(45deg);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.status-select-chevron.open {
+  transform: rotate(-135deg);
+  border-color: rgba(209, 250, 229, 0.95);
+}
+
+.status-select-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: -1rem;
+  right: -1rem;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.98) 0%,
+    rgba(12, 20, 36, 0.98) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.72rem;
+  overflow: hidden;
+  z-index: 30;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  animation: status-menu-in 0.18s ease-out;
+}
+
+.status-select-option {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  border: none;
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.25rem;
+  padding: 0.7rem 0.95rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.status-select-option:hover {
+  background: rgba(148, 163, 184, 0.2);
+  color: #ffffff;
+}
+
+.status-select-option.selected {
+  background: rgba(20, 145, 106, 0.28);
+  color: #d1fae5;
+}
+
+@keyframes status-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Estilo do checkbox */

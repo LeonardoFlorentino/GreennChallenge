@@ -2,6 +2,8 @@ export function ProducerCardSkeleton() {
   return (
     <div
       className="
+        w-full
+        h-full
         bg-white/5
         backdrop-blur-xl
         border border-white/10

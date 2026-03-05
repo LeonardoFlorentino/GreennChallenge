@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Medal } from "lucide-react";
 import type { Producer } from "../../types/producer";
 import { ProducerModal } from "../ProducerModal";
+import { producerService } from "../../services/producersService";
 
 interface Props {
   producer: Producer;
@@ -10,10 +12,22 @@ interface Props {
 export function ProducerCard({ producer, onUpdate }: Props) {
   const [open, setOpen] = useState(false);
 
+  async function handleModalSuccess() {
+    try {
+      const updated = await producerService.getById(producer.id);
+      onUpdate(updated as Producer);
+    } catch (error) {
+      console.error("Erro ao recarregar produtor atualizado:", error);
+    }
+  }
+
   return (
     <>
       <div
         className="
+          relative
+          w-full
+          h-full
           bg-white/5
           backdrop-blur-xl
           border border-white/10
@@ -25,6 +39,18 @@ export function ProducerCard({ producer, onUpdate }: Props) {
           hover:scale-[1.02]
         "
       >
+        <div className="absolute top-4 right-4 rounded-xl bg-yellow-400/15 border border-yellow-300/30 px-2.5 py-1.5 text-right">
+          <div className="flex items-center justify-end gap-1.5 text-yellow-300">
+            <Medal size={14} />
+            <span className="text-[11px] font-semibold uppercase tracking-wide">
+              Score
+            </span>
+          </div>
+          <p className="text-sm font-bold text-yellow-200 leading-none mt-1">
+            {producer.relevance_score}
+          </p>
+        </div>
+
         <img
           src={producer.imageUrl}
           alt={producer.name}
@@ -35,11 +61,6 @@ export function ProducerCard({ producer, onUpdate }: Props) {
 
         <p className="text-gray-400 mt-1">
           {producer.followers_instagram.toLocaleString()} seguidores
-        </p>
-
-        <p className="mt-1 text-sm">
-          Score:{" "}
-          <span className="font-semibold">{producer.relevance_score}</span>
         </p>
 
         <p className="mt-1">
@@ -60,10 +81,11 @@ export function ProducerCard({ producer, onUpdate }: Props) {
             py-2
             rounded-xl
             transition
+            cursor-pointer
             w-full
           "
         >
-          Edição
+          Editar
         </button>
       </div>
 
@@ -71,7 +93,7 @@ export function ProducerCard({ producer, onUpdate }: Props) {
         <ProducerModal
           producer={producer}
           onClose={() => setOpen(false)}
-          onUpdate={onUpdate}
+          onSuccess={handleModalSuccess}
         />
       )}
     </>

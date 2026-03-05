@@ -1,138 +1,81 @@
-import type { Producer } from "../types/producer";
+const BASE_URL = `${import.meta.env.VITE_API_URL}/producers`;
 
-const producers: Producer[] = [
-  {
-    id: 1,
-    name: "Carol Mansur",
-    email: "carol-mansur@produtora.com",
-    document: "123.456.789-00",
-    status: "active",
-    commission: 30,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/DGwmfmaFiaGsH8hNyaLmCM2LzhZbANKxI3VhskGf.webp",
-    createdAt: "2025-01-10",
-    followers_instagram: 5500000,
-    relevance_score: 92.5,
-    is_trending: true,
-  },
-  {
-    id: 2,
-    name: "Matheus Sanfer",
-    email: "matheus-sanfer@produtor.com",
-    document: "987.654.321-00",
-    status: "inactive",
-    commission: 40,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/fUnUqfQFbyW4nLg14ejaGU6A4afxV0a9N8Z4pTUv.webp",
-    createdAt: "2025-01-15",
-    followers_instagram: 1200000,
-    relevance_score: 78.3,
-    is_trending: false,
-  },
-  {
-    id: 3,
-    name: "Gabriel Rockenbach",
-    email: "gabriel-rockenbach@produtor.com",
-    document: "111.222.333-44",
-    status: "active",
-    commission: 35,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/9N7KZOmzZ77NssEJsdQ109KcKHXQDXMcxPuR7g87.webp",
-    createdAt: "2025-02-01",
-    followers_instagram: 890000,
-    relevance_score: 81.7,
-    is_trending: false,
-  },
-  {
-    id: 4,
-    name: "Pablo Marçal",
-    email: "pablo-marçal@produtor.com",
-    document: "555.666.777-88",
-    status: "active",
-    commission: 25,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/WHNLo6jMqBOZoHO0iFFwi3bhAz28DlrRGANESbD0.webp",
-    createdAt: "2025-02-10",
-    followers_instagram: 3200000,
-    relevance_score: 88.9,
-    is_trending: true,
-  },
-  {
-    id: 5,
-    name: "Bel Guerra",
-    email: "bel-guerra@produtor.com",
-    document: "999.888.777-66",
-    status: "inactive",
-    commission: 50,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/X3FLCEjBHF2BYtbfdo3wnlQ1ickJhAEJeM92neoI.webp",
-    createdAt: "2025-02-18",
-    followers_instagram: 450000,
-    relevance_score: 70.4,
-    is_trending: false,
-  },
-  {
-    id: 6,
-    name: "Henrique Marinho",
-    email: "henrique-marinho@produtora.com",
-    document: "321.654.987-00",
-    status: "active",
-    commission: 20,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/8ji7jQXfUCrnHN1SnwThMljrWpsicPRS7X6oMEwa.webp",
-    createdAt: "2025-02-22",
-    followers_instagram: 6700000,
-    relevance_score: 95.2,
-    is_trending: true,
-  },
-  {
-    id: 7,
-    name: "Kau Miranda",
-    email: "kau-miranda@produtor.com",
-    document: "741.852.963-11",
-    status: "active",
-    commission: 45,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/wt6BVxtH5o9w4JocjcjKIvYolphaaC3nd50kQa8T.webp",
-    createdAt: "2025-02-25",
-    followers_instagram: 2300000,
-    relevance_score: 84.6,
-    is_trending: false,
-  },
-  {
-    id: 8,
-    name: "Christian Barbosa",
-    email: "christian-barbosa@produtora.com",
-    document: "852.963.741-22",
-    status: "inactive",
-    commission: 30,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/OPZCv2bCJWZSpIeDtHyBlpZ1rWH7baFYwOtxcs5C.webp",
-    createdAt: "2025-03-01",
-    followers_instagram: 4100000,
-    relevance_score: 90.1,
-    is_trending: true,
-  },
-  {
-    id: 9,
-    name: "Rhuan Cavalcante",
-    email: "rhuan-cavalcante@produtor.com",
-    document: "159.357.258-33",
-    status: "active",
-    commission: 60,
-    imageUrl:
-      "https://s3.gdigital.com.br/gdigital/24/QfbHbZayoB79OTbCXVaXpRjcBwcHro1Fo9u5CYxi.webp",
-    createdAt: "2025-03-03",
-    followers_instagram: 980000,
-    relevance_score: 76.8,
-    is_trending: false,
-  },
-];
+function mapProducer(raw: any) {
+  if (!raw || typeof raw !== "object") return raw;
 
-export const getProducers = async (): Promise<Producer[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(producers);
-    }, 300);
-  });
+  return {
+    ...raw,
+    imageUrl: raw.imageUrl ?? raw.image_url ?? "",
+    createdAt: raw.createdAt ?? raw.created_at ?? "",
+  };
+}
+
+export const producerService = {
+  async getAll() {
+    const response = await fetch(BASE_URL);
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar produtores");
+    }
+
+    const data = await response.json();
+    return Array.isArray(data) ? data.map(mapProducer) : data;
+  },
+
+  async getById(id: number) {
+    const response = await fetch(`${BASE_URL}/${id}`);
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar produtor");
+    }
+
+    const data = await response.json();
+    return mapProducer(data);
+  },
+
+  async create(payload: any) {
+    const response = await fetch(BASE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao criar produtor");
+    }
+
+    const createdProducer = await response.json();
+    return mapProducer(createdProducer);
+  },
+
+  async update(id: number, payload: any) {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao atualizar produtor");
+    }
+
+    const updatedProducer = await response.json();
+    return mapProducer(updatedProducer);
+  },
+
+  async delete(id: number) {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao deletar produtor");
+    }
+
+    return true;
+  },
 };

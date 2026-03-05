@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { getProducers } from "../../services/producersService";
+import { producerService } from "../../services/producersService";
 import type { Producer } from "../../types/producer";
 import { ProducerCard } from "../../components/ProducerCard";
 import { ProducerCardSkeleton } from "../../components/ProducerCardSkeleton";
 import { ArrowLeft } from "lucide-react";
 import { LeftArrowButton } from "../../components/LeftArrowButton";
+
+function sortByScoreDesc(items: Producer[]) {
+  return [...items].sort((a, b) => b.relevance_score - a.relevance_score);
+}
 
 export default function Admin() {
   const [producers, setProducers] = useState<Producer[]>([]);
@@ -12,17 +16,18 @@ export default function Admin() {
 
   useEffect(() => {
     async function load() {
-      const data = await getProducers();
-      setProducers(data as Producer[]);
+      const data = await producerService.getAll();
+      setProducers(sortByScoreDesc(data as Producer[]));
       setLoading(false);
     }
     load();
   }, []);
 
   function handleUpdate(updated: Producer) {
-    setProducers((prev) =>
-      prev.map((p) => (p.id === updated.id ? updated : p)),
-    );
+    setProducers((prev) => {
+      const next = prev.map((p) => (p.id === updated.id ? updated : p));
+      return sortByScoreDesc(next);
+    });
   }
 
   return (
@@ -79,7 +84,7 @@ export default function Admin() {
         </div>
 
         {/* Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-8">
           {loading
             ? Array.from({ length: 6 }).map((_, i) => (
                 <ProducerCardSkeleton key={i} />
