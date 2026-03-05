@@ -20,7 +20,6 @@ return new class extends Migration
                 $table->integer('commission');
                 $table->string('imageUrl');
                 $table->integer('followers_instagram');
-                $table->float('relevance_score');
                 $table->boolean('is_trending')->default(false);
                 $table->string('category');
                 $table->unsignedBigInteger('direct_sales_last_year');

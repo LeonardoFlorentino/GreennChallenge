@@ -19,7 +19,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/DGwmfmaFiaGsH8hNyaLmCM2LzhZbANKxI3VhskGf.webp",
                 "created_at"                => "2025-01-10",
                 "followers_instagram"       => 1235,
-                "relevance_score"           => 92.5,
                 "is_trending"               => true,
                 "category"                  => "Emagrecimento e Saúde",
                 "direct_sales_last_year"    => 24800000,   // Ano anterior (2025)
@@ -37,7 +36,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/fUnUqfQFbyW4nLg14ejaGU6A4afxV0a9N8Z4pTUv.webp",
                 "created_at"                => "2025-01-15",
                 "followers_instagram"       => 62600,
-                "relevance_score"           => 78.3,
                 "is_trending"               => false,
                 "category"                  => "Finanças e Investimentos",
                 "direct_sales_last_year"    => 18700000,
@@ -55,7 +53,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/9N7KZOmzZ77NssEJsdQ109KcKHXQDXMcxPuR7g87.webp",
                 "created_at"                => "2025-02-01",
                 "followers_instagram"       => 78100,
-                "relevance_score"           => 81.7,
                 "is_trending"               => false,
                 "category"                  => "Desenvolvimento Pessoal",
                 "direct_sales_last_year"    => 35600000,
@@ -73,7 +70,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/WHNLo6jMqBOZoHO0iFFwi3bhAz28DlrRGANESbD0.webp",
                 "created_at"                => "2025-02-10",
                 "followers_instagram"       => 13100000,
-                "relevance_score"           => 88.9,
                 "is_trending"               => true,
                 "category"                  => "Mentoria e Negócios",
                 "direct_sales_last_year"    => 95200000,   // Ano anterior (2025)
@@ -91,7 +87,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/X3FLCEjBHF2BYtbfdo3wnlQ1ickJhAEJeM92neoI.webp",
                 "created_at"                => "2025-02-18",
                 "followers_instagram"       => 149000,
-                "relevance_score"           => 70.4,
                 "is_trending"               => false,
                 "category"                  => "Emagrecimento Feminino",
                 "direct_sales_last_year"    => 14200000,
@@ -109,7 +104,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/8ji7jQXfUCrnHN1SnwThMljrWpsicPRS7X6oMEwa.webp",
                 "created_at"                => "2025-02-22",
                 "followers_instagram"       => 101000,
-                "relevance_score"           => 95.2,
                 "is_trending"               => true,
                 "category"                  => "Marketing Digital",
                 "direct_sales_last_year"    => 68400000,
@@ -127,7 +121,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/wt6BVxtH5o9w4JocjcjKIvYolphaaC3nd50kQa8T.webp",
                 "created_at"                => "2025-02-25",
                 "followers_instagram"       => 268000,
-                "relevance_score"           => 84.6,
                 "is_trending"               => false,
                 "category"                  => "Relacionamento e Sedução",
                 "direct_sales_last_year"    => 42100000,
@@ -145,7 +138,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/OPZCv2bCJWZSpIeDtHyBlpZ1rWH7baFYwOtxcs5C.webp",
                 "created_at"                => "2025-03-01",
                 "followers_instagram"       => 569000,
-                "relevance_score"           => 90.1,
                 "is_trending"               => true,
                 "category"                  => "Produtividade e Gestão",
                 "direct_sales_last_year"    => 51800000,
@@ -163,7 +155,6 @@ class ProducerSeeder extends Seeder
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/QfbHbZayoB79OTbCXVaXpRjcBwcHro1Fo9u5CYxi.webp",
                 "created_at"                => "2025-03-03",
                 "followers_instagram"       => 73900,
-                "relevance_score"           => 76.8,
                 "is_trending"               => false,
                 "category"                  => "Física e Performance",
                 "direct_sales_last_year"    => 19500000,
@@ -178,3 +169,4 @@ class ProducerSeeder extends Seeder
         }
     }
 }
+
