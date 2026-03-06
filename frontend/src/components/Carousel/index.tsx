@@ -1,4 +1,5 @@
 ﻿import { useEffect, useState } from "react";
+import "./index.css";
 import { producerService } from "../../services/producersService";
 import type { Producer } from "../../types/producer";
 import { Card } from "../Card";

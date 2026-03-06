@@ -45,28 +45,30 @@ export function IntroOverviewSection({
     <section className="intro-overview rounded-2xl border border-white/20 bg-slate-950/40 p-5 backdrop-blur min-[1800px]:p-7">
       <div className="intro-overview-grid">
         <div className="intro-overview-content">
-          <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-slate-950/40 px-4 py-2 backdrop-blur">
+          <div className="intro-overview-brand inline-flex items-center gap-3 rounded-full border border-white/20 bg-slate-950/40 px-4 py-2 backdrop-blur">
             <img
               src="/greenn-logo.ico"
               alt="Logo Greenn"
               className="h-5 w-5 rounded-sm object-cover"
             />
-            <span className="text-sm uppercase tracking-[0.2em] text-emerald-200/85">
+            <span className="intro-overview-brand-label text-sm uppercase tracking-[0.2em] text-emerald-200/85">
               Greenn Challenge
             </span>
           </div>
 
-          <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl min-[1800px]:text-6xl">
+          <h1 className="intro-overview-title mt-5 max-w-4xl text-[clamp(2.2rem,3.3vw,3.25rem)] font-semibold leading-[1.08] min-[1800px]:text-[clamp(2.8rem,2.6vw,4rem)]">
             Visão geral do desafio para vaga na Greenn
           </h1>
+        </div>
 
-          <p className="mt-5 max-w-4xl text-base text-slate-200/85 sm:text-lg min-[1800px]:text-[1.45rem] min-[1800px]:leading-relaxed">
+        <div className="intro-overview-details">
+          <p className="intro-overview-lead max-w-4xl text-[clamp(1rem,1.12vw,1.25rem)] leading-relaxed text-slate-200/85 min-[1800px]:text-[clamp(1.1rem,1vw,1.45rem)]">
             Projeto técnico criado para investigar falhas no carrossel original
             e evoluir para uma solução full stack com foco em estabilidade e
             fluidez.
           </p>
 
-          <p className="mt-3 max-w-4xl text-sm text-emerald-100/90 min-[1800px]:text-xl">
+          <p className="intro-overview-goal mt-3 max-w-4xl text-[clamp(0.86rem,0.95vw,1.08rem)] leading-relaxed text-emerald-100/90 min-[1800px]:text-[clamp(0.95rem,0.9vw,1.25rem)]">
             Objetivo: conquistar a vaga de{" "}
             <a
               href="https://vagas.solides.com.br/vaga/771877/desenvolvedor28a29-fullstack-pleno-28laravel-e-react29-bluee"
@@ -74,12 +76,12 @@ export function IntroOverviewSection({
               rel="noopener noreferrer"
               className="font-semibold underline decoration-emerald-300/60 underline-offset-4 hover:text-emerald-100"
             >
-              Desenvolvedor(a) Fullstack Pleno (Laravel e React) na Bluee
+              Desenvolvedor(a) Fullstack Pleno (Laravel e React) na Greenn
             </a>
-            .
+            , contribuindo no projeto com IA Bluee.ai.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3 min-[1800px]:mt-8 min-[1800px]:gap-4">
+          <div className="intro-overview-actions mt-6 flex flex-wrap gap-3 min-[1800px]:mt-8 min-[1800px]:gap-4">
             <Link
               to="/home"
               className="inline-flex h-11 items-center justify-center rounded-xl bg-[#14916A] px-5 text-sm font-semibold text-white shadow-[0_8px_22px_rgba(20,145,106,0.32)] transition hover:-translate-y-0.5 hover:bg-[#0f7c59] min-[1800px]:h-14 min-[1800px]:px-7 min-[1800px]:text-lg"
@@ -94,7 +96,7 @@ export function IntroOverviewSection({
             </Link>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2 text-xs min-[1800px]:mt-6 min-[1800px]:text-sm">
+          <div className="intro-overview-badges mt-4 flex flex-wrap gap-2 text-xs min-[1800px]:mt-6 min-[1800px]:text-sm">
             <span className="rounded-full border border-white/15 bg-slate-950/40 px-3 py-1 text-slate-200/90">
               Diagnóstico de renderização
             </span>
@@ -107,10 +109,10 @@ export function IntroOverviewSection({
           </div>
         </div>
 
-        <div className="intro-overview-orbit relative mx-auto flex min-h-[280px] w-full max-w-[360px] items-center justify-center">
+        <div className="intro-overview-orbit relative mx-auto flex w-full max-w-[280px] items-center justify-center min-[1800px]:max-w-[320px]">
           <div
             ref={orbitRef}
-            className="tech-orbit relative w-full max-w-[clamp(16rem,22vw,24rem)] aspect-square rounded-full min-[1800px]:max-w-[clamp(22rem,20vw,30rem)]"
+            className="tech-orbit relative aspect-square w-full max-w-[clamp(10.5rem,12vw,15rem)] rounded-full min-[1800px]:max-w-[clamp(11.5rem,10vw,16rem)]"
           >
             <div className="absolute inset-4 rounded-full border border-dashed border-emerald-200/35" />
             <div
@@ -147,7 +149,7 @@ export function IntroOverviewSection({
 
 export function IntroVideoSection() {
   return (
-    <section className="intro-video rounded-2xl border border-red-200/20 bg-slate-950/45 p-4 sm:p-5">
+    <section className="intro-video rounded-2xl border border-red-200/20 bg-slate-950/45 p-4 backdrop-blur sm:p-5">
       <p className="text-sm font-semibold tracking-wide text-red-200/85">
         Diagnóstico em vídeo do problema do carrossel
       </p>
@@ -191,7 +193,7 @@ export function IntroVideoSection() {
 
 export function IntroSolutionsSection() {
   return (
-    <section className="intro-solutions rounded-2xl border border-emerald-200/20 bg-slate-950/45 p-4 sm:p-5">
+    <section className="intro-solutions rounded-2xl border border-emerald-200/20 bg-slate-950/45 p-4 backdrop-blur sm:p-5">
       <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
         Soluções implementadas
       </p>
@@ -211,7 +213,7 @@ export function IntroSolutionsSection() {
 
 export function IntroResultsSection() {
   return (
-    <section className="intro-results rounded-2xl border border-emerald-200/15 bg-emerald-950/25 p-4 sm:p-6">
+    <section className="intro-results rounded-2xl border border-emerald-200/15 bg-emerald-950/25 p-4 backdrop-blur sm:p-6">
       <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
         Resultado alcançado até aqui
       </p>
@@ -243,7 +245,7 @@ export function IntroTechSection({
   techMarqueeStyle,
 }: IntroTechSectionProps) {
   return (
-    <section className="intro-tech rounded-2xl border border-emerald-200/15 bg-emerald-950/25 p-4 sm:p-6">
+    <section className="intro-tech rounded-2xl border border-emerald-200/15 bg-emerald-950/25 p-4 backdrop-blur sm:p-6">
       <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
         Tecnologias utilizadas
       </p>

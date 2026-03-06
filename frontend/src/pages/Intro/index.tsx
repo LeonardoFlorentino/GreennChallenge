@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import "./index.css";
 import {
   IntroOverviewSection,
   IntroResultsSection,
@@ -31,6 +32,11 @@ export default function Intro() {
     const fusionDurationSec = 5;
     const orbitPathInsetPx = 16;
     const orbitCenterOffsetPx = 3.45;
+    const referenceOrbitSizePx = 224;
+    const minOrbitScale = 0.58;
+    const maxOrbitScale = 1.05;
+    const compactOrbitReferencePx = 230;
+    const minCompactFactor = 0.72;
     const minLogoScale = 0.05;
     const centerMaxScale = 3.45;
 
@@ -65,7 +71,16 @@ export default function Intro() {
         orbitSize / 2 - orbitPathInsetPx + orbitCenterOffsetPx,
       );
       const radius = maxRadius * (1 - progress);
-      const logoScale = 1 - (1 - minLogoScale) * progress;
+      const orbitScale = Math.min(
+        maxOrbitScale,
+        Math.max(minOrbitScale, orbitSize / referenceOrbitSizePx),
+      );
+      const compactOrbitFactor = Math.min(
+        1,
+        Math.max(minCompactFactor, orbitSize / compactOrbitReferencePx),
+      );
+      const logoScale =
+        (1 - (1 - minLogoScale) * progress) * orbitScale * compactOrbitFactor;
       const logoOpacity = 1 - progress;
 
       const x = Math.cos(angle) * radius;
@@ -153,9 +168,13 @@ export default function Intro() {
               centerLogoRef={centerLogoRef}
               centerGlowRef={centerGlowRef}
             />
-            <IntroVideoSection />
-            <IntroSolutionsSection />
-            <IntroResultsSection />
+            <div className="intro-cluster intro-cluster-center">
+              <IntroVideoSection />
+            </div>
+            <div className="intro-cluster intro-cluster-right">
+              <IntroSolutionsSection />
+              <IntroResultsSection />
+            </div>
             <IntroTechSection
               techViewportRef={techViewportRef}
               techBaseSetRef={techBaseSetRef}
