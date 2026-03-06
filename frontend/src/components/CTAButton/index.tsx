@@ -10,8 +10,10 @@ export const CTAButton = ({ children, onClick, href }: CTAButtonProps) => {
     hover:bg-[#0f7c59]
     text-white
     font-semibold
-    px-12
-    py-4
+    px-6
+    py-3
+    sm:px-12
+    sm:py-4
     rounded-2xl
     transition-all
     duration-300
@@ -19,6 +21,9 @@ export const CTAButton = ({ children, onClick, href }: CTAButtonProps) => {
     shadow-lg
     inline-block
     text-center
+    max-w-full
+    whitespace-normal
+    break-words
   `;
 
   if (href) {

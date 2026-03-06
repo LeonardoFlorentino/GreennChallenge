@@ -1,6 +1,32 @@
 @import "tailwindcss";
 
 /* =========================
+   RESET E SAFEGUARDS
+========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+}
+
+img,
+video,
+svg,
+canvas,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* =========================
    MARQUEE INFINITO
 ========================= */
 
@@ -46,6 +72,14 @@
 .tech-marquee-track {
   animation: marquee-by-distance var(--marquee-duration, 20s) linear infinite;
   will-change: transform;
+}
+
+.tech-marquee-logo {
+  width: auto;
+  height: auto;
+  max-width: 112px;
+  max-height: 40px;
+  object-fit: contain;
 }
 
 @keyframes orbit-spin {
@@ -115,11 +149,12 @@
 .tech-orbit-planet {
   border-radius: 9999px;
   background: radial-gradient(
-    circle at 30% 30%,
-    rgba(255, 255, 255, 0.4),
-    rgba(15, 23, 42, 0.95)
+    circle at 35% 35%,
+    rgba(16, 185, 129, 0.5),
+    rgb(16, 24, 40) 50%,
+    rgb(12, 18, 30)
   );
-  border: 1px solid rgba(148, 163, 184, 0.55);
+  border: 1px solid rgba(16, 185, 129, 0.35);
   padding: 10px;
   box-shadow: 0 8px 24px rgba(2, 8, 23, 0.35);
 }
@@ -189,5 +224,169 @@ body {
   font-family: "Inter", sans-serif;
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   background: linear-gradient(to bottom, #019c7c 0%, #000000 100%);
+}
+
+.intro-layout > *,
+.intro-overview-grid > * {
+  min-width: 0;
+}
+
+/* =========================
+   INTRO GRID LAYOUT
+========================= */
+
+.intro-layout {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "overview"
+    "video_diagnosis"
+    "implemented_solutions"
+    "achieved_results"
+    "used_technologies";
+}
+
+.intro-overview {
+  grid-area: overview;
+}
+
+.intro-video {
+  grid-area: video_diagnosis;
+}
+
+.intro-solutions {
+  grid-area: implemented_solutions;
+}
+
+.intro-results {
+  grid-area: achieved_results;
+}
+
+.intro-tech {
+  grid-area: used_technologies;
+}
+
+.intro-overview-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "main_content"
+    "planetary_orbit";
+}
+
+.intro-overview-content {
+  grid-area: main_content;
+}
+
+.intro-overview-orbit {
+  grid-area: planetary_orbit;
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .intro-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "overview"
+      "video_diagnosis"
+      "implemented_solutions"
+      "achieved_results"
+      "used_technologies";
+  }
+
+  .intro-overview-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "main_content"
+      "planetary_orbit";
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .intro-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "overview overview"
+      "video_diagnosis video_diagnosis"
+      "implemented_solutions achieved_results"
+      "used_technologies used_technologies";
+  }
+
+  .intro-overview-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "main_content"
+      "planetary_orbit";
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .intro-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "overview overview"
+      "video_diagnosis video_diagnosis"
+      "implemented_solutions achieved_results"
+      "used_technologies used_technologies";
+  }
+
+  .intro-overview-grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(300px, 1fr);
+    grid-template-areas: "main_content planetary_orbit";
+    align-items: center;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .intro-layout {
+    grid-template-columns: minmax(0, 1.45fr) minmax(360px, 1fr);
+    grid-template-areas:
+      "overview video_diagnosis"
+      "implemented_solutions achieved_results"
+      "used_technologies used_technologies";
+  }
+
+  .intro-overview-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 1fr);
+    grid-template-areas: "main_content planetary_orbit";
+    align-items: center;
+  }
+}
+
+/* 2xl */
+@media (min-width: 1536px) {
+  .intro-layout {
+    grid-template-columns: minmax(0, 1.5fr) minmax(420px, 1fr);
+    grid-template-areas:
+      "overview video_diagnosis"
+      "implemented_solutions achieved_results"
+      "used_technologies used_technologies";
+    gap: 2rem;
+  }
+
+  .intro-overview-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(360px, 1fr);
+    grid-template-areas: "main_content planetary_orbit";
+    align-items: center;
+  }
+}
+
+/* ultra-small screens */
+@media (max-width: 520px) {
+  .intro-layout,
+  .intro-overview-grid {
+    gap: 1rem;
+  }
+
+  .tech-orbit-logo {
+    height: 44px;
+    width: 44px;
+  }
 }

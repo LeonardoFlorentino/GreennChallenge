@@ -12,7 +12,7 @@ export default function Home() {
       <NavButton to="/admin">Painel</NavButton>
 
       <div className="mx-auto mb-16 max-w-4xl px-6">
-        <h2 className="text-[42px] font-light leading-[1.15] tracking-tight text-gray-900 md:text-[56px]">
+        <h2 className="text-3xl font-light leading-[1.15] tracking-tight text-gray-900 sm:text-[42px] md:text-[56px]">
           Produtores de <span className="font-semibold">todos os tamanhos</span>{" "}
           e mercados
         </h2>

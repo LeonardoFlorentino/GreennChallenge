@@ -52,7 +52,7 @@ export function LeftArrowButton({
         hover:bg-slate-900/80
         text-sm
         font-medium
-        ${shouldShrink ? "p-3" : "px-5 py-2.5"}
+        ${shouldShrink ? "p-3" : "px-3 py-2 sm:px-5 sm:py-2.5"}
         ${className}
       `}
     >

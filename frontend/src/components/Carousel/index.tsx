@@ -63,7 +63,7 @@ export const Carousel = () => {
   const skeletons = Array.from({ length: skeletonCount });
 
   return (
-    <section className="w-screen overflow-hidden">
+    <section className="w-full max-w-full overflow-hidden">
       <div className="flex w-max animate-marquee">
         {loading
           ? skeletons.map((_, index) => <SkeletonCard key={index} />)
