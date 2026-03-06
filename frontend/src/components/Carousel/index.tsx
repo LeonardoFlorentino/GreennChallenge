@@ -60,16 +60,20 @@ export const Carousel = () => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const skeletons = Array.from({ length: skeletonCount });
+  const skeletons = Array.from({ length: skeletonCount }, (_, id) => ({
+    id: `skeleton-${id}`,
+  }));
 
   return (
     <section className="w-full max-w-full overflow-hidden">
       <div className="flex w-max animate-marquee">
         {loading
-          ? skeletons.map((_, index) => <SkeletonCard key={index} />)
-          : [...producers, ...producers].map((producer, index) => (
-              <Card key={index} producer={producer} />
-            ))}
+          ? skeletons.map((skeleton) => <SkeletonCard key={skeleton.id} />)
+          : ["a", "b"].flatMap((copy) =>
+              producers.map((producer) => (
+                <Card key={`${copy}-${producer.id}`} producer={producer} />
+              )),
+            )}
       </div>
     </section>
   );

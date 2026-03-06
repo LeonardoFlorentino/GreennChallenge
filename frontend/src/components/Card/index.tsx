@@ -10,6 +10,7 @@ export const Card = ({ producer }: CardProps) => {
       {/* Imagem */}
       <img
         src={producer.imageUrl}
+        alt={`Foto de ${producer.name}`}
         className="absolute inset-0 w-full h-full object-cover"
       />
 
@@ -18,7 +19,7 @@ export const Card = ({ producer }: CardProps) => {
 
       {/* Nome */}
       <div className="absolute bottom-6 left-6 text-white">
-        <h3 className="text-2xl font-bold leading-tight"></h3>
+        <h3 className="text-2xl font-bold leading-tight">{producer.name}</h3>
       </div>
     </div>
   );

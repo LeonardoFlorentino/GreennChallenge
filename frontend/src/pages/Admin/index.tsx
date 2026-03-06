@@ -30,7 +30,7 @@ export default function Admin() {
       setShowIntroButton(window.scrollY < 120);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

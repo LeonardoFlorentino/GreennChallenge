@@ -102,6 +102,11 @@ export function ProducerModal({ producer, onClose, onSuccess }: Props) {
             {localData.imageUrl && (
               <img
                 src={localData.imageUrl}
+                alt={
+                  localData.name
+                    ? `Foto de ${localData.name}`
+                    : "Foto do produtor"
+                }
                 className="w-16 h-16 rounded-full object-cover shrink-0"
               />
             )}

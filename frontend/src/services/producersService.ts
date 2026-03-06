@@ -1,14 +1,23 @@
+import type { Producer } from "../types/producer";
+
 const BASE_URL = `${import.meta.env.VITE_API_URL}/producers`;
 
-function mapProducer(raw: any) {
-  if (!raw || typeof raw !== "object") return raw;
+type ProducerWithLegacyFields = Partial<Producer> & {
+  image_url?: string;
+  created_at?: string;
+};
+
+function mapProducer(raw: unknown): ProducerWithLegacyFields {
+  if (!raw || typeof raw !== "object") return {};
+
+  const source = raw as ProducerWithLegacyFields;
 
   return {
-    ...raw,
-    imageUrl: raw.imageUrl ?? raw.image_url ?? "",
-    createdAt: raw.createdAt ?? raw.created_at ?? "",
-    direct_skyrocketing_sales: raw.direct_skyrocketing_sales ?? false,
-    indirect_skyrocketing_sales: raw.indirect_skyrocketing_sales ?? false,
+    ...source,
+    imageUrl: source.imageUrl ?? source.image_url ?? "",
+    createdAt: source.createdAt ?? source.created_at ?? "",
+    direct_skyrocketing_sales: source.direct_skyrocketing_sales ?? false,
+    indirect_skyrocketing_sales: source.indirect_skyrocketing_sales ?? false,
   };
 }
 
@@ -35,7 +44,7 @@ export const producerService = {
     return mapProducer(data);
   },
 
-  async create(payload: any) {
+  async create(payload: Partial<Producer>) {
     const response = await fetch(BASE_URL, {
       method: "POST",
       headers: {
@@ -52,7 +61,7 @@ export const producerService = {
     return mapProducer(createdProducer);
   },
 
-  async update(id: number, payload: any) {
+  async update(id: number, payload: Partial<Producer>) {
     const response = await fetch(`${BASE_URL}/${id}`, {
       method: "PUT",
       headers: {
