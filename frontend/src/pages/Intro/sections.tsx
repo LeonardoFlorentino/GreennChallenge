@@ -17,13 +17,16 @@ const achievements = [
 ];
 
 const logos = [
-  { name: "PHP", src: "/tech-logos/php-logo.png" },
-  { name: "Laravel", src: "/tech-logos/laravel-logo.png" },
-  { name: "TypeScript", src: "/tech-logos/typescript-logo.png" },
-  { name: "React", src: "/tech-logos/react-logo.png" },
   { name: "React Router", src: "/tech-logos/react-router-logo.png" },
-  { name: "Tailwind", src: "/tech-logos/tailwind-logo.png" },
+  { name: "PHP", src: "/tech-logos/php-logo.png" },
   { name: "Vite", src: "/tech-logos/vitejs-logo.png" },
+  { name: "CSS", src: "/tech-logos/css-logo.png" },
+  { name: "Laravel", src: "/tech-logos/laravel-logo.png" },
+  { name: "React", src: "/tech-logos/react-logo.png" },
+  { name: "JavaScript", src: "/tech-logos/js-logo.png" },
+  { name: "TypeScript", src: "/tech-logos/typescript-logo.png" },
+  { name: "Tailwind", src: "/tech-logos/tailwind-logo.png" },
+  { name: "HTML", src: "/tech-logos/html-logo.png" },
 ];
 
 interface IntroOverviewSectionProps {
