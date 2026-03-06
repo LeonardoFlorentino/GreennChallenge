@@ -47,7 +47,7 @@ export default function Admin() {
 
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <img
-          src="/greenn-logo-background.webp"
+          src="/greenn-logo.png"
           alt="Greenn Background"
           className="w-[1000px] max-w-none select-none opacity-[0.10] blur-sm mix-blend-lighten"
         />
