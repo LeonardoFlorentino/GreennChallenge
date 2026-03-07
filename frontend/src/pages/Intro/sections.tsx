@@ -1,19 +1,61 @@
-import { Github } from "lucide-react";
+import {
+  Bug,
+  CheckCircle,
+  Code,
+  Database,
+  Github,
+  Layout,
+  RefreshCw,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import type { CSSProperties, RefObject } from "react";
 import { Link } from "react-router-dom";
 
 const highlights = [
-  "Análise técnica dos problemas de renderização e fluidez no carrossel original.",
-  "Implementação de carrossel infinito com animação contínua e comportamento previsível.",
-  "Estrutura de API para produtores com CRUD, seeding e testes automatizados.",
-  "Painel administrativo com edição em modal, ordenação por score e ajustes de UX.",
-  "Cálculo de relevância no backend e integração completa com frontend tipado.",
+  {
+    icon: Code,
+    text: "Análise técnica dos problemas de renderização e fluidez no carrossel original.",
+  },
+  {
+    icon: RefreshCw,
+    text: "Implementação de carrossel infinito com animação contínua e comportamento previsível.",
+  },
+  {
+    icon: Database,
+    text: "Estrutura de API para produtores com CRUD, seeding e testes automatizados.",
+  },
+  {
+    icon: Layout,
+    text: "Painel administrativo com edição em modal, ordenação por score e ajustes de UX.",
+  },
+  {
+    icon: Zap,
+    text: "Cálculo de relevância no backend e integração completa com frontend tipado.",
+  },
 ];
 
 const achievements = [
-  "Redução de inconsistências visuais durante o carregamento com skeleton responsivo.",
-  "Padronização de rotas, botões de navegação e hierarquia visual entre telas.",
-  "Base pronta para evolução da lógica de rotação e validação de performance.",
+  {
+    icon: Code,
+    text: "Arquitetura fullstack escalável com Laravel (API REST + seeding + testes) e React com TypeScript tipado.",
+  },
+  {
+    icon: RefreshCw,
+    text: "Integração frontend-backend robusta com comunicação assíncrona e tratamento de estados complexos.",
+  },
+  {
+    icon: Database,
+    text: "Modelagem e manutenção de dados com foco em performance e consistência para cenários de produção.",
+  },
+  {
+    icon: Zap,
+    text: "Aplicação de estratégias de cache em memória e otimização de fluxos para reduzir latência.",
+  },
+  {
+    icon: CheckCircle,
+    text: "Código limpo, revisão técnica colaborativa e alinhamento com UI/UX, QA e DevOps para entregas confiáveis.",
+  },
 ];
 
 const logos = [
@@ -59,16 +101,19 @@ export function IntroOverviewSection({
             </span>
           </div>
 
-          <h1 className="intro-overview-title mt-5 max-w-4xl text-[clamp(2.2rem,3.3vw,3.25rem)] font-semibold leading-[1.08] min-[1800px]:text-[clamp(2.8rem,2.6vw,4rem)]">
-            Visão geral do desafio para vaga na Greenn
+          <h1 className="intro-overview-title mt-5 max-w-4xl text-[clamp(2.2rem,3.3vw,3.25rem)] font-semibold leading-[1.1] tracking-[-0.015em] min-[1800px]:text-[clamp(2.8rem,2.6vw,4rem)]">
+            Análise técnica e refatoração
+            <span className="block text-emerald-100/95">
+              da arquitetura do carrossel da Greenn
+            </span>
           </h1>
         </div>
 
         <div className="intro-overview-details">
           <p className="intro-overview-lead max-w-4xl text-[clamp(1rem,1.12vw,1.25rem)] leading-relaxed text-slate-200/85 min-[1800px]:text-[clamp(1.1rem,1vw,1.45rem)]">
-            Projeto técnico criado para investigar falhas no carrossel original
-            e evoluir para uma solução full stack com foco em estabilidade e
-            fluidez.
+            Projeto técnico criado para investigar falhas no carrossel de
+            produtores digitais, do site oficial da Greenn e evoluir para uma
+            solução full stack com foco em estabilidade e fluidez.
           </p>
 
           <p className="intro-overview-goal mt-3 max-w-4xl text-[clamp(0.86rem,0.95vw,1.08rem)] leading-relaxed text-emerald-100/90 min-[1800px]:text-[clamp(0.95rem,0.9vw,1.25rem)]">
@@ -153,15 +198,36 @@ export function IntroOverviewSection({
 export function IntroVideoSection() {
   return (
     <section className="intro-video rounded-2xl border border-red-200/20 bg-slate-950/45 p-4 backdrop-blur sm:p-5">
-      <p className="text-sm font-semibold tracking-wide text-red-200/85">
-        Diagnóstico em vídeo do problema do carrossel
-      </p>
-      <ul className="mt-3 space-y-2 text-[15px] leading-relaxed text-slate-100/90">
-        <li>Produtores repetidos em sequência após algum tempo.</li>
-        <li>Colisão visual entre cartões e lag durante a rolagem.</li>
-      </ul>
+      <div className="flex items-center gap-2">
+        <Bug className="h-[25px] w-[25px] shrink-0 text-slate-300/70" />
+        <p className="text-sm font-semibold tracking-wide text-slate-100/90">
+          Problemas identificados no carrossel original
+        </p>
+      </div>
+      <div className="mt-3 space-y-2.5">
+        <div className="rounded-lg border border-white/12 bg-slate-900/40 px-3 py-2.5">
+          <p className="text-sm font-semibold text-slate-100/95">
+            Duplicação de produtores digitais
+          </p>
+          <p className="mt-1 text-[14px] leading-relaxed text-slate-200/80">
+            Cartões de produtores aparecem repetidos em sequência, indicando
+            falhas na lógica de rotação e controle dos dados renderizados.
+          </p>
+        </div>
+        <div className="rounded-lg border border-white/12 bg-slate-900/40 px-3 py-2.5">
+          <p className="text-sm font-semibold text-slate-100/95">
+            Colisões visuais e <em>lag</em> perceptível
+          </p>
+          <p className="mt-1 text-[14px] leading-relaxed text-slate-200/80">
+            Durante a rolagem, cartões colidem visualmente e a interface
+            apresenta travamentos momentâneos, afetando a fluidez da
+            experiência.
+          </p>
+        </div>
+      </div>
       <p className="mt-3 text-xs tracking-wide text-slate-300/75">
-        Dados do vídeo coletados no site da Greenn em 22 de fevereiro de 2026.
+        Dados do vídeo coletados no site oficial da Greenn em 22 de fevereiro de
+        2026.
       </p>
 
       <div className="mx-auto mt-4 w-full rounded-xl border border-white/10 bg-black/40 p-2">
@@ -197,16 +263,22 @@ export function IntroVideoSection() {
 export function IntroSolutionsSection() {
   return (
     <section className="intro-solutions rounded-2xl border border-emerald-200/20 bg-slate-950/45 p-4 backdrop-blur sm:p-5">
-      <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
-        Soluções implementadas
-      </p>
+      <div className="flex items-center gap-2">
+        <CheckCircle className="h-[18px] w-[18px] shrink-0 text-emerald-200/70" />
+        <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
+          Soluções implementadas
+        </p>
+      </div>
       <div className="mt-3 grid gap-3">
         {highlights.map((item) => (
           <div
-            key={item}
-            className="rounded-xl border border-white/12 bg-slate-900/40 px-3 py-2 text-[15px] leading-relaxed text-slate-100/90"
+            key={item.text}
+            className="flex items-start gap-2.5 rounded-xl border border-white/12 bg-slate-900/40 px-3 py-2"
           >
-            {item}
+            <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300/60" />
+            <span className="text-[15px] leading-relaxed text-slate-100/90">
+              {item.text}
+            </span>
           </div>
         ))}
       </div>
@@ -217,16 +289,20 @@ export function IntroSolutionsSection() {
 export function IntroResultsSection() {
   return (
     <section className="intro-results rounded-2xl border border-emerald-200/15 bg-emerald-950/25 p-4 backdrop-blur sm:p-6">
-      <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
-        Resultado alcançado até aqui
-      </p>
+      <div className="flex items-center gap-2">
+        <Sparkles className="h-[18px] w-[18px] shrink-0 text-emerald-200/70" />
+        <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
+          Competências fullstack demonstradas
+        </p>
+      </div>
       <ul className="mt-4 grid gap-2 text-[15px] leading-relaxed text-emerald-50/90">
         {achievements.map((item) => (
           <li
-            key={item}
-            className="rounded-lg border border-white/10 bg-slate-950/20 px-3 py-2"
+            key={item.text}
+            className="flex items-start gap-2.5 rounded-lg border border-white/10 bg-slate-950/20 px-3 py-2"
           >
-            {item}
+            <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300/65" />
+            <span>{item.text}</span>
           </li>
         ))}
       </ul>

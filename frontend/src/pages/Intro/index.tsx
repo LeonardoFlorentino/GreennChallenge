@@ -154,33 +154,38 @@ export default function Intro() {
   } as CSSProperties;
 
   return (
-    <main className="relative min-h-screen overflow-hidden text-white">
+    <main className="relative overflow-hidden text-white">
       <div className="absolute inset-0 bg-gradient-to-br from-[#019c7c] via-[#012e25] to-[#07132a]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_42%)]" />
 
       <section className="relative z-10 mx-auto flex w-full max-w-[2200px] flex-col px-4 py-10 sm:px-6 sm:py-12 lg:px-8 xl:px-10 2xl:px-12 min-[1800px]:max-w-none min-[1800px]:px-[4vw] min-[2200px]:px-[5vw]">
         <div className="w-full">
           <div className="intro-layout">
-            <IntroOverviewSection
-              orbitRef={orbitRef}
-              reactLogoRef={reactLogoRef}
-              laravelLogoRef={laravelLogoRef}
-              centerLogoRef={centerLogoRef}
-              centerGlowRef={centerGlowRef}
-            />
-            <div className="intro-cluster intro-cluster-center">
+            <div className="intro-column intro-column-left">
+              <IntroOverviewSection
+                orbitRef={orbitRef}
+                reactLogoRef={reactLogoRef}
+                laravelLogoRef={laravelLogoRef}
+                centerLogoRef={centerLogoRef}
+                centerGlowRef={centerGlowRef}
+              />
+
+              <IntroTechSection
+                techViewportRef={techViewportRef}
+                techBaseSetRef={techBaseSetRef}
+                techCopies={techCopies}
+                techMarqueeStyle={techMarqueeStyle}
+              />
+            </div>
+
+            <div className="intro-column intro-column-right">
               <IntroVideoSection />
+
+              <div className="intro-cluster">
+                <IntroSolutionsSection />
+                <IntroResultsSection />
+              </div>
             </div>
-            <div className="intro-cluster intro-cluster-right">
-              <IntroSolutionsSection />
-              <IntroResultsSection />
-            </div>
-            <IntroTechSection
-              techViewportRef={techViewportRef}
-              techBaseSetRef={techBaseSetRef}
-              techCopies={techCopies}
-              techMarqueeStyle={techMarqueeStyle}
-            />
           </div>
         </div>
       </section>

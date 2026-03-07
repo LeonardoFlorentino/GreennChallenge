@@ -84,6 +84,11 @@
   min-width: 0;
 }
 
+.intro-column {
+  min-width: 0;
+  display: contents;
+}
+
 .intro-cluster {
   min-width: 0;
   display: contents;
@@ -412,12 +417,36 @@
   }
 
   .intro-overview-grid {
-    grid-template-columns: minmax(0, 1.55fr) minmax(180px, 0.72fr);
-    grid-template-areas:
-      "main_content planetary_orbit"
-      "secondary_content secondary_content";
-    align-items: start;
+    grid-template-columns: 75% 25%;
+    grid-template-areas: none;
+    grid-template-rows: auto auto;
+    align-items: stretch;
     gap: 1rem;
+  }
+
+  .intro-overview-content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .intro-overview-details {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .intro-overview-orbit {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .intro-overview-orbit .tech-orbit {
+    max-width: clamp(12.6rem, 14.4vw, 18rem);
   }
 }
 
@@ -433,12 +462,18 @@
   }
 
   .intro-overview-grid {
-    grid-template-columns: minmax(0, 1.7fr) minmax(190px, 0.7fr);
+    grid-template-columns: 75% 25%;
     grid-template-areas:
       "main_content planetary_orbit"
       "secondary_content secondary_content";
     align-items: start;
     gap: 1rem;
+  }
+
+  .intro-overview-orbit {
+    justify-self: center;
+    align-self: center;
+    max-width: none;
   }
 
   .intro-video {
@@ -449,14 +484,11 @@
 /* 2xl */
 @media (min-width: 1366px) and (max-width: 1535px) {
   .intro-layout {
-    grid-template-columns: minmax(0, 1.18fr) minmax(380px, 0.95fr) minmax(
-        380px,
-        0.95fr
-      );
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
     grid-template-areas:
-      "overview center_column right_column"
-      "used_technologies used_technologies right_column";
-    align-items: stretch;
+      "left_column right_column"
+      "used_technologies used_technologies";
+    align-items: start;
     gap: 1rem;
   }
 
@@ -469,36 +501,19 @@
     gap: 1rem;
   }
 
-  .intro-overview {
-    display: flex;
-    flex-direction: column;
-    grid-area: overview;
-    min-height: 100%;
-  }
-
-  .intro-overview-grid {
-    flex: 1;
-    display: grid;
-  }
-
-  .intro-cluster {
+  .intro-column {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    min-height: 100%;
+    min-height: 0;
   }
 
-  .intro-cluster-center {
-    grid-area: center_column;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    min-height: 100%;
+  .intro-column-left {
+    grid-area: left_column;
   }
 
-  .intro-cluster-right {
+  .intro-column-right {
     grid-area: right_column;
-    grid-row: 1 / -1;
   }
 
   .intro-tech {
@@ -508,24 +523,20 @@
   .intro-video,
   .intro-solutions,
   .intro-results {
-    flex: 1;
-    min-height: 0;
+    flex: 0 0 auto;
+    min-height: auto;
   }
 }
 
 /* 2xl compact tuning: optimize readability and avoid visual dead zones around 1700px */
 @media (min-width: 1536px) and (max-width: 2364px) {
   .intro-layout {
-    grid-template-columns: minmax(0, 1.2fr) minmax(360px, 1fr) minmax(
-        360px,
-        1fr
-      );
-    grid-template-rows: 1fr auto;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
     grid-template-areas:
-      "overview center_column right_column"
-      "used_technologies used_technologies right_column";
+      "left_column right_column"
+      "used_technologies used_technologies";
     gap: 1.2rem;
-    align-items: stretch;
+    align-items: start;
   }
 
   .intro-overview-grid {
@@ -535,43 +546,31 @@
       "secondary_content secondary_content";
     gap: 1rem;
     align-items: start;
-    height: 100%;
+    height: auto;
   }
 
-  .intro-overview {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .intro-cluster {
+  .intro-column {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    height: 100%;
+    min-height: 0;
   }
 
-  .intro-cluster-center {
-    grid-area: center_column;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    height: 100%;
+  .intro-column-left {
+    grid-area: left_column;
   }
 
-  .intro-cluster-right {
+  .intro-column-right {
     grid-area: right_column;
-    grid-row: 1 / -1;
   }
 
   .intro-video,
   .intro-solutions,
   .intro-results {
-    flex: 1;
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    min-height: 0;
+    min-height: auto;
   }
 
   .intro-tech {
@@ -596,86 +595,264 @@
   }
 }
 
-/* ultra-wide full-width tech: 2355px+ - expand intro-tech across entire viewport width */
-@media (min-width: 2355px) {
+/* 1536-1650px: independent left/right stacks + full-width tech row */
+@media (min-width: 1536px) and (max-width: 1899px) {
   .intro-layout {
-    grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.96fr) minmax(
-        360px,
-        0.92fr
-      );
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
     grid-template-areas:
-      "overview center_column right_column"
-      "used_technologies used_technologies used_technologies";
-    gap: 1.35rem;
-    align-items: stretch;
-    grid-auto-rows: auto 1fr;
-  }
-
-  .intro-cluster-center {
-    grid-area: center_column;
-    display: flex;
-    flex-direction: column;
-    gap: 1.35rem;
-    min-height: 100%;
-  }
-
-  .intro-cluster-right {
-    grid-area: right_column;
-    grid-row: 1;
-  }
-
-  .intro-tech {
-    grid-area: used_technologies;
-    width: 100%;
-    min-height: 100px;
-  }
-
-  .intro-overview {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
-  }
-
-  .intro-overview-grid {
-    grid-template-columns: minmax(0, 1.75fr) minmax(210px, 0.78fr);
-    grid-template-areas:
-      "main_content planetary_orbit"
-      "secondary_content secondary_content";
-    flex: 1;
-    gap: 1.1rem;
+      "left_column right_column"
+      "used_technologies right_column";
     align-items: start;
+    gap: 1.2rem;
   }
 
-  .intro-cluster {
+  .intro-column {
     display: flex;
     flex-direction: column;
-    gap: 1.35rem;
-    min-height: 100%;
+    gap: 1.2rem;
+    min-height: 0;
   }
 
-  .intro-overview-orbit {
-    max-width: 250px;
+  .intro-column-left {
+    grid-area: left_column;
+  }
+
+  .intro-column-right {
+    grid-area: right_column;
+    grid-row: 1 / -1;
   }
 
   .intro-video,
   .intro-solutions,
   .intro-results {
-    flex: 1;
+    flex: 0 0 auto;
+    min-height: auto;
+    height: auto;
+    align-self: stretch;
+  }
+
+  .intro-tech {
+    grid-area: used_technologies;
+    min-height: 0;
+    align-self: start;
+  }
+}
+
+/* filling vertical gaps at mid-range 1651-1899px like 1700px */
+/* @media (min-width: 1651px) and (max-width: 1899px) {
+  .intro-column {
     display: flex;
     flex-direction: column;
-    min-height: 220px;
+    gap: 1.2rem;
+    min-height: 0;
+  }
+
+  .intro-video,
+  .intro-solutions {
+    flex: 0 0 auto;
+    min-height: auto;
+  }
+
+  .intro-results {
+    flex: 0 0 auto;
+  }
+} */
+
+/* medium ultra-wide tuning: fill visual gaps around 1983px */
+@media (min-width: 1900px) and (max-width: 2100px) {
+  .intro-overview-grid {
+    gap: 1.25rem;
   }
 
   .intro-overview-title {
-    font-size: clamp(2.1rem, 1.75vw, 2.75rem);
-    line-height: 1.08;
+    font-size: clamp(2.45rem, 2.15vw, 3.2rem);
+    max-width: 14ch;
   }
 
   .intro-overview-lead {
-    font-size: clamp(1rem, 0.82vw, 1.12rem);
+    font-size: clamp(1.08rem, 0.95vw, 1.2rem);
   }
 
   .intro-overview-goal {
-    font-size: clamp(0.9rem, 0.72vw, 1rem);
+    font-size: clamp(0.98rem, 0.84vw, 1.08rem);
+  }
+
+  .intro-overview-actions {
+    margin-top: 1.4rem;
+    gap: 0.75rem;
+  }
+
+  .intro-overview-actions a {
+    min-height: 52px;
+    padding-left: 1.35rem;
+    padding-right: 1.35rem;
+    font-size: 0.98rem;
+  }
+
+  .intro-overview-badges {
+    margin-top: 1.1rem;
+    gap: 0.55rem;
+  }
+
+  .intro-overview-badges span {
+    font-size: 0.82rem;
+    padding: 0.34rem 0.72rem;
+  }
+
+  .intro-overview-orbit {
+    max-width: 245px;
+  }
+
+  .intro-video {
+    padding: 1.15rem;
+  }
+
+  .intro-video video {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* ultra-wide redesign: 2355px-2599px in strict 3-column grid */
+@media (min-width: 2355px) and (max-width: 2599px) {
+  .intro-layout {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.9fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .intro-column-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .intro-column-right {
+    display: contents;
+  }
+
+  .intro-video {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    justify-self: center;
+    width: 100%;
+    max-width: clamp(520px, 26vw, 640px);
+    min-width: 0;
+  }
+
+  .intro-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    grid-column: 3;
+    grid-row: 1;
+    align-self: start;
+    min-width: 0;
+  }
+
+  .intro-overview,
+  .intro-tech,
+  .intro-solutions,
+  .intro-results {
+    grid-area: unset;
+    min-width: 0;
+  }
+
+  .intro-overview-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(210px, 0.7fr);
+    grid-template-areas:
+      "main_content planetary_orbit"
+      "secondary_content secondary_content";
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .intro-overview-content {
+    grid-area: main_content;
+  }
+
+  .intro-overview-orbit {
+    grid-area: planetary_orbit;
+    max-width: 250px;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .intro-overview-details {
+    grid-area: secondary_content;
+  }
+
+  .intro-overview-title {
+    font-size: clamp(1.82rem, 1.45vw, 2.3rem);
+    line-height: 1.08;
+    max-width: 16ch;
+  }
+
+  .intro-overview-lead {
+    font-size: clamp(0.95rem, 0.66vw, 1.05rem);
+    line-height: 1.46;
+  }
+
+  .intro-overview-goal {
+    font-size: clamp(0.84rem, 0.56vw, 0.93rem);
+    line-height: 1.38;
+  }
+
+  .intro-video video {
+    aspect-ratio: 16 / 9.8;
+  }
+
+  .intro-tech .tech-marquee-logo {
+    max-width: 104px;
+    max-height: 35px;
+  }
+}
+
+/* 2600px+ fine tuning: tighten rhythm for very wide monitors */
+@media (min-width: 2600px) {
+  .intro-layout {
+    grid-template-columns: minmax(0, 1.16fr) minmax(0, 1fr) minmax(0, 0.94fr);
+    gap: 1.1rem;
+  }
+
+  .intro-video {
+    justify-self: center;
+    width: 100%;
+    max-width: clamp(560px, 24vw, 700px);
+  }
+
+  .intro-overview-grid {
+    grid-template-columns: minmax(0, 1.7fr) minmax(240px, 0.88fr);
+    gap: 1.1rem;
+  }
+
+  .intro-overview-orbit {
+    max-width: 220px;
+  }
+
+  .intro-video,
+  .intro-solutions,
+  .intro-results,
+  .intro-tech {
+    padding: 1.05rem;
+  }
+
+  .intro-overview-title {
+    font-size: clamp(1.95rem, 1.34vw, 2.4rem);
+    line-height: 1.1;
+  }
+
+  .intro-overview-lead {
+    font-size: clamp(0.95rem, 0.68vw, 1.03rem);
+  }
+
+  .intro-overview-goal {
+    font-size: clamp(0.86rem, 0.6vw, 0.95rem);
   }
 }
