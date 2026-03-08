@@ -121,7 +121,7 @@ export const Carousel = ({ onErrorChange }: CarouselProps) => {
   return (
     <section className="w-full max-w-full overflow-hidden">
       <div className="flex w-max animate-marquee">
-        {loading
+        {loading || producers.length === 0
           ? skeletons.map((skeleton) => <SkeletonCard key={skeleton.id} />)
           : ["a", "b"].flatMap((copy) =>
               producers.map((producer) => (

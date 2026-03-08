@@ -7,9 +7,10 @@ import { producerService } from "../../services/producersService";
 interface Props {
   producer: Producer;
   onUpdate: (updated: Producer) => void;
+  onDelete?: () => void;
 }
 
-export function ProducerCard({ producer, onUpdate }: Props) {
+export function ProducerCard({ producer, onUpdate, onDelete }: Props) {
   const [open, setOpen] = useState(false);
 
   async function handleModalSuccess() {
@@ -60,7 +61,7 @@ export function ProducerCard({ producer, onUpdate }: Props) {
         <img
           src={producer.imageUrl}
           alt={producer.name}
-          className="w-20 h-20 rounded-full mb-4 object-cover"
+          className="w-20 h-20 aspect-square rounded-full mb-4 object-cover shrink-0"
         />
 
         <h3 className="text-xl font-semibold">{producer.name}</h3>
@@ -100,6 +101,7 @@ export function ProducerCard({ producer, onUpdate }: Props) {
           producer={producer}
           onClose={() => setOpen(false)}
           onSuccess={handleModalSuccess}
+          onDelete={onDelete}
         />
       )}
     </>

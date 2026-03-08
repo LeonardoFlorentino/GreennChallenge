@@ -1,8 +1,11 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useCallback, useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 import { producerService } from "../../services/producersService";
 import type { Producer } from "../../types/producer";
 import { ProducerCard } from "../../components/ProducerCard";
 import { ProducerCardSkeleton } from "../../components/ProducerCardSkeleton";
+import { ProducerModal } from "../../components/ProducerModal";
+import { Toast } from "../../components/Toast";
 import { LeftArrowButton } from "../../components/LeftArrowButton";
 import { NavButton } from "../../components/NavButton";
 import { ConnectionError } from "../../components/ConnectionError";
@@ -21,6 +24,8 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [showIntroButton, setShowIntroButton] = useState(true);
   const [error, setError] = useState<ErrorState | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -78,6 +83,26 @@ export default function Admin() {
       return sortByScoreDesc(next);
     });
   }
+
+  async function handleCreateSuccess() {
+    try {
+      const data = await producerService.getAll();
+      setProducers(sortByScoreDesc(data as Producer[]));
+      setToast("Produtor criado com sucesso");
+    } catch (err) {
+      console.error("Erro ao recarregar produtores:", err);
+    }
+  }
+
+  const handleDelete = useCallback(async () => {
+    try {
+      const data = await producerService.getAll();
+      setProducers(sortByScoreDesc(data as Producer[]));
+      setToast("Produtor excluído com sucesso");
+    } catch (err) {
+      console.error("Erro ao recarregar produtores:", err);
+    }
+  }, []);
 
   async function handleRetry() {
     setError(null);
@@ -143,14 +168,38 @@ export default function Admin() {
         />
 
         {!error && (
-          <div className="mb-14">
-            <h1 className="bg-gradient-to-r from-white via-green-300 to-emerald-400 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl lg:text-6xl">
-              Painel de Produtores
-            </h1>
+          <div className="mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+            <div>
+              <h1 className="bg-gradient-to-r from-white via-green-300 to-emerald-400 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+                Painel de Produtores
+              </h1>
 
-            <p className="mt-3 text-lg text-white/60">
-              Gestão estratégica de performance e relevância digital
-            </p>
+              <p className="mt-3 text-lg text-white/60">
+                Gestão estratégica de performance e relevância digital
+              </p>
+            </div>
+
+            {!loading && (
+              <button
+                onClick={() => setShowCreateModal(true)}
+                className="
+                  flex items-center gap-2
+                  px-5 py-3
+                  rounded-2xl
+                  bg-[#14916A]
+                  hover:bg-[#0f7c59]
+                  text-white font-semibold
+                  transition-all duration-200
+                  hover:scale-[1.03]
+                  cursor-pointer
+                  shadow-lg shadow-emerald-900/30
+                  shrink-0
+                "
+              >
+                <Plus size={20} />
+                Novo Produtor
+              </button>
+            )}
           </div>
         )}
 
@@ -173,6 +222,7 @@ export default function Admin() {
                 key={producer.id}
                 producer={producer}
                 onUpdate={handleUpdate}
+                onDelete={handleDelete}
               />
             ))
           ) : (
@@ -184,6 +234,15 @@ export default function Admin() {
           )}
         </div>
       </div>
+
+      {showCreateModal && (
+        <ProducerModal
+          onClose={() => setShowCreateModal(false)}
+          onSuccess={handleCreateSuccess}
+        />
+      )}
+
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   );
 }

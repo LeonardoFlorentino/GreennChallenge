@@ -1,28 +1,58 @@
-import { useEffect, useRef, useState } from "react";
+function validateFields(data: Partial<Producer>) {
+  const newErrors: Record<string, string> = {};
+  if (!data.name || !data.name.trim()) newErrors.name = "Nome é obrigatório";
+  if (!data.email || !data.email.trim())
+    newErrors.email = "E-mail é obrigatório";
+  if (!data.document || !data.document.trim())
+    newErrors.document = "Documento é obrigatório";
+  if (
+    data.commission === undefined ||
+    data.commission === null ||
+    data.commission === 0
+  )
+    newErrors.commission = "Comissão é obrigatória";
+  if (
+    data.followers_instagram === undefined ||
+    data.followers_instagram === null ||
+    data.followers_instagram === 0
+  )
+    newErrors.followers_instagram = "Seguidores é obrigatório";
+  if (!data.imageUrl || !data.imageUrl.trim())
+    newErrors.imageUrl = "Imagem é obrigatória";
+  if (!data.category || !data.category.trim())
+    newErrors.category = "Categoria é obrigatória";
+  return newErrors;
+}
+import {
+  useEffect,
+  useRef,
+  useState,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import type { Producer } from "../../types/producer";
 import { Field } from "./Field";
 
 interface Props {
   localData: Partial<Producer>;
   onDataChange: (data: Partial<Producer>) => void;
+  showErrors?: boolean;
+  errors?: Record<string, string>;
 }
 
-export function EditableFieldsSection({ localData, onDataChange }: Props) {
+export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
+  { localData, onDataChange, showErrors = false, errors = {} }: Props,
+  ref,
+) {
   const [statusOpen, setStatusOpen] = useState(false);
   const statusRef = useRef<HTMLDivElement | null>(null);
+  const [localErrors, setLocalErrors] = useState(errors);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (!statusRef.current) return;
+    setLocalErrors(errors);
+  }, [errors]);
 
-      if (!statusRef.current.contains(event.target as Node)) {
-        setStatusOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // ...existing code...
 
   const handleChange = <K extends keyof Producer>(
     key: K,
@@ -32,7 +62,31 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
       ...localData,
       [key]: value,
     });
+    const isEmpty =
+      value === undefined ||
+      value === null ||
+      value === "" ||
+      (typeof value === "string" && value.trim() === "");
+    setLocalErrors((prev) => {
+      const next = { ...prev };
+      if (isEmpty) {
+        // Revalida só esse campo
+        const fieldErrors = validateFields({ ...localData, [key]: value });
+        if (fieldErrors[key as string]) {
+          next[key as string] = fieldErrors[key as string];
+        }
+      } else {
+        delete next[key as string];
+      }
+      return next;
+    });
   };
+
+  useImperativeHandle(ref, () => ({
+    validate: () => validateFields(localData),
+  }));
+
+  // ...existing code...
 
   const statusValue = (localData.status ?? "active") as Producer["status"];
   const statusLabel = statusValue === "active" ? "Ativo" : "Inativo";
@@ -46,6 +100,33 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
 
   return (
     <div className="flex flex-col gap-3 pt-2">
+      <Field label="Nome" error={showErrors ? localErrors.name : undefined}>
+        <input
+          type="text"
+          value={localData.name ?? ""}
+          onChange={(e) => handleChange("name", e.target.value)}
+          className="w-full bg-transparent outline-none"
+        />
+      </Field>
+      <Field label="E-mail" error={showErrors ? localErrors.email : undefined}>
+        <input
+          type="email"
+          value={localData.email ?? ""}
+          onChange={(e) => handleChange("email", e.target.value)}
+          className="w-full bg-transparent outline-none"
+        />
+      </Field>
+      <Field
+        label="Documento"
+        error={showErrors ? localErrors.document : undefined}
+      >
+        <input
+          type="text"
+          value={localData.document ?? ""}
+          onChange={(e) => handleChange("document", e.target.value)}
+          className="w-full bg-transparent outline-none"
+        />
+      </Field>
       <div className={`status-field ${statusOpen ? "open" : ""}`}>
         <Field label="Status">
           <div className="status-select" ref={statusRef}>
@@ -64,7 +145,6 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
                 />
               </span>
             </button>
-
             {statusOpen && (
               <div className="status-select-menu" role="listbox">
                 {availableStatusOptions.map((option) => (
@@ -87,7 +167,6 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
           </div>
         </Field>
       </div>
-
       <Field label="Trending">
         <label className="flex items-center gap-2">
           <input
@@ -98,9 +177,11 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
           Ativo
         </label>
       </Field>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <Field label="Seguidores">
+        <Field
+          label="Seguidores"
+          error={showErrors ? localErrors.followers_instagram : undefined}
+        >
           <input
             type="text"
             value={
@@ -110,43 +191,47 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
             }
             onChange={(e) => {
               const numericValue = Number(e.target.value.replace(/\D/g, ""));
-
               handleChange("followers_instagram", numericValue);
             }}
-            className="w-full"
+            className="w-full bg-transparent outline-none"
           />
         </Field>
-
-        <Field label="Comissão (%)">
+        <Field
+          label="Comissão (%)"
+          error={showErrors ? localErrors.commission : undefined}
+        >
           <input
             type="number"
             min={0}
             step="0.01"
-            value={localData.commission ?? 0}
+            value={localData.commission ?? ""}
             onChange={(e) => handleChange("commission", Number(e.target.value))}
-            className="w-full"
+            className="w-full bg-transparent outline-none"
           />
         </Field>
       </div>
-
-      <Field label="Imagem (URL)">
+      <Field
+        label="Imagem (URL)"
+        error={showErrors ? localErrors.imageUrl : undefined}
+      >
         <input
           type="text"
           value={localData.imageUrl ?? ""}
           onChange={(e) => handleChange("imageUrl", e.target.value)}
-          className="w-full"
+          className="w-full bg-transparent outline-none"
         />
       </Field>
-
-      <Field label="Categoria">
+      <Field
+        label="Categoria"
+        error={showErrors ? localErrors.category : undefined}
+      >
         <input
           type="text"
           value={localData.category ?? ""}
           onChange={(e) => handleChange("category", e.target.value)}
-          className="w-full"
+          className="w-full bg-transparent outline-none"
         />
       </Field>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Field label="Vendas Diretas (último ano)">
           <input
@@ -160,10 +245,9 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
               const numericValue = Number(e.target.value.replace(/\D/g, ""));
               handleChange("direct_sales_last_year", numericValue);
             }}
-            className="w-full"
+            className="w-full bg-transparent outline-none"
           />
         </Field>
-
         <Field label="Vendas Indiretas (último ano)">
           <input
             type="text"
@@ -176,11 +260,10 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
               const numericValue = Number(e.target.value.replace(/\D/g, ""));
               handleChange("indirect_sales_last_year", numericValue);
             }}
-            className="w-full"
+            className="w-full bg-transparent outline-none"
           />
         </Field>
       </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Field label="Vendas Diretas (último mês)">
           <input
@@ -194,10 +277,9 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
               const numericValue = Number(e.target.value.replace(/\D/g, ""));
               handleChange("direct_sales_last_month", numericValue);
             }}
-            className="w-full"
+            className="w-full bg-transparent outline-none"
           />
         </Field>
-
         <Field label="Vendas Indiretas (último mês)">
           <input
             type="text"
@@ -210,10 +292,10 @@ export function EditableFieldsSection({ localData, onDataChange }: Props) {
               const numericValue = Number(e.target.value.replace(/\D/g, ""));
               handleChange("indirect_sales_last_month", numericValue);
             }}
-            className="w-full"
+            className="w-full bg-transparent outline-none"
           />
         </Field>
       </div>
     </div>
   );
-}
+});
