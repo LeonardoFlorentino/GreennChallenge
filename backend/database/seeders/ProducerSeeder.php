@@ -17,6 +17,7 @@ class ProducerSeeder extends Seeder
                 "status"                    => "active",
                 "commission"                => 30,
                 "imageUrl"                  => "https://s3.gdigital.com.br/gdigital/24/DGwmfmaFiaGsH8hNyaLmCM2LzhZbANKxI3VhskGf.webp",
+                "image_url_has_name"        => true,
                 "created_at"                => "2025-01-10",
                 "followers_instagram"       => 1235,
                 "is_trending"               => true,

@@ -19,6 +19,7 @@ return new class extends Migration
                 $table->enum('status', ['active', 'inactive'])->default('active');
                 $table->integer('commission');
                 $table->string('imageUrl');
+                $table->boolean('image_url_has_name')->default(false);
                 $table->integer('followers_instagram');
                 $table->boolean('is_trending')->default(false);
                 $table->string('category');

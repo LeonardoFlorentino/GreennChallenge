@@ -23,6 +23,7 @@ class ProducerFactory extends Factory
             'status' => 'active',
             'commission' => fake()->numberBetween(10, 80),
             'imageUrl' => fake()->imageUrl(),
+            'image_url_has_name' => true,
             'followers_instagram' => fake()->numberBetween(1000, 1000000),
             'is_trending' => fake()->boolean(),
             'category' => fake()->randomElement([
