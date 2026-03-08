@@ -1,4 +1,5 @@
 export interface Producer {
+  image_url_has_name?: boolean;
   id: number;
   name: string;
   email: string;

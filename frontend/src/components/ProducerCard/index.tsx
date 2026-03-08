@@ -98,6 +98,7 @@ export function ProducerCard({ producer, onUpdate, onDelete }: Props) {
 
       {open && (
         <ProducerModal
+          key={producer.id || "new"}
           producer={producer}
           onClose={() => setOpen(false)}
           onSuccess={handleModalSuccess}

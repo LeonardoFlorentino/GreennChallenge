@@ -18,9 +18,11 @@ export const Card = ({ producer }: CardProps) => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
       {/* Nome */}
-      <div className="absolute bottom-6 left-6 text-white">
-        <h3 className="text-2xl font-bold leading-tight">{producer.name}</h3>
-      </div>
+      {producer.image_url_has_name !== true && (
+        <div className="absolute bottom-6 left-6 text-white">
+          <h3 className="text-2xl font-bold leading-tight">{producer.name}</h3>
+        </div>
+      )}
     </div>
   );
 };

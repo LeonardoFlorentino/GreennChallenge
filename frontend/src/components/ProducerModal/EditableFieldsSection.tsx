@@ -108,25 +108,6 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           className="w-full bg-transparent outline-none"
         />
       </Field>
-      <Field label="E-mail" error={showErrors ? localErrors.email : undefined}>
-        <input
-          type="email"
-          value={localData.email ?? ""}
-          onChange={(e) => handleChange("email", e.target.value)}
-          className="w-full bg-transparent outline-none"
-        />
-      </Field>
-      <Field
-        label="Documento"
-        error={showErrors ? localErrors.document : undefined}
-      >
-        <input
-          type="text"
-          value={localData.document ?? ""}
-          onChange={(e) => handleChange("document", e.target.value)}
-          className="w-full bg-transparent outline-none"
-        />
-      </Field>
       <div className={`status-field ${statusOpen ? "open" : ""}`}>
         <Field label="Status">
           <div className="status-select" ref={statusRef}>
@@ -167,6 +148,40 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           </div>
         </Field>
       </div>
+      <Field label="E-mail" error={showErrors ? localErrors.email : undefined}>
+        <input
+          type="email"
+          value={localData.email ?? ""}
+          onChange={(e) => handleChange("email", e.target.value)}
+          className="w-full bg-transparent outline-none"
+        />
+      </Field>
+      <Field
+        label="Documento"
+        error={showErrors ? localErrors.document : undefined}
+      >
+        <input
+          type="text"
+          value={localData.document ?? ""}
+          onChange={(e) => handleChange("document", e.target.value)}
+          className="w-full bg-transparent outline-none"
+        />
+      </Field>
+      <Field label="Imagem contém nome">
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            checked={!!localData.image_url_has_name}
+            onChange={(e) =>
+              handleChange("image_url_has_name", e.target.checked)
+            }
+            className="w-5 h-5 accent-green-600"
+          />
+          <span className="ml-2">
+            {localData.image_url_has_name ? "Sim" : "Não"}
+          </span>
+        </div>
+      </Field>
       <Field label="Trending">
         <label className="flex items-center gap-2">
           <input

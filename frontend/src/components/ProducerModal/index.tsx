@@ -83,6 +83,7 @@ export function ProducerModal({
     producerReducer,
     initialProducerState(producer),
   );
+
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const localDataWithLegacyDate = state.localData as ProducerWithLegacyDate;
