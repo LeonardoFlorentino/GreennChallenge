@@ -5,22 +5,8 @@ function validateFields(data: Partial<Producer>) {
     newErrors.email = "E-mail é obrigatório";
   if (!data.document || !data.document.trim())
     newErrors.document = "Documento é obrigatório";
-  if (
-    data.commission === undefined ||
-    data.commission === null ||
-    data.commission === 0
-  )
-    newErrors.commission = "Comissão é obrigatória";
-  if (
-    data.followers_instagram === undefined ||
-    data.followers_instagram === null ||
-    data.followers_instagram === 0
-  )
-    newErrors.followers_instagram = "Seguidores é obrigatório";
-  if (!data.imageUrl || !data.imageUrl.trim())
-    newErrors.imageUrl = "Imagem é obrigatória";
-  if (!data.category || !data.category.trim())
-    newErrors.category = "Categoria é obrigatória";
+  // Os campos abaixo não são mais obrigatórios:
+  // commission, followers_instagram, imageUrl, category
   return newErrors;
 }
 import {

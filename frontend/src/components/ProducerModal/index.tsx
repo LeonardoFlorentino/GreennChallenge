@@ -117,14 +117,35 @@ export function ProducerModal({
     dispatch({ type: "SET_ERRORS", value: {} });
     try {
       dispatch({ type: "SET_LOADING", value: true });
+      // Remove campos vazios do payload
+      const payload = Object.fromEntries(
+        Object.entries(state.localData).filter(
+          ([, v]) => v !== undefined && v !== null && v !== "",
+        ),
+      );
       if (producer?.id) {
-        await producerService.update(producer.id, state.localData);
+        await producerService.update(producer.id, payload);
+        onSuccess();
+        onClose();
       } else {
-        await producerService.create(state.localData);
+        await producerService.create(payload);
+        onSuccess();
+        onClose();
       }
-      onSuccess();
-      onClose();
-    } catch (error) {
+    } catch (error: any) {
+      let errorMsg = "Erro ao criar produtor";
+      if (error instanceof Error) {
+        errorMsg = error.message;
+      }
+      // Se for um erro de fetch, tente extrair mais detalhes
+      if (error && error.response) {
+        try {
+          const text = await error.response.text();
+          errorMsg += `: ${text}`;
+        } catch {}
+      }
+      onSuccess(new Error(errorMsg));
+      // Não fecha a modal em caso de erro
       console.error("Erro ao salvar produtor:", error);
     } finally {
       dispatch({ type: "SET_LOADING", value: false });
@@ -172,7 +193,7 @@ export function ProducerModal({
               </h2>
               <p
                 className="mt-0.5 font-light leading-tight tracking-[0.02em] text-slate-500 truncate"
-                style={{ fontSize: "11px" }}
+                style={{ fontSize: "15.4px" }}
               >
                 {producer
                   ? state.localData.email
@@ -181,7 +202,7 @@ export function ProducerModal({
               {producer && (
                 <p
                   className="mt-0.5 font-light leading-tight tracking-[0.02em] text-slate-600 truncate"
-                  style={{ fontSize: "10px" }}
+                  style={{ fontSize: "14px" }}
                 >
                   {"\u{1F4C5}"} criado em {formatDate(rawCreatedAt)}
                 </p>

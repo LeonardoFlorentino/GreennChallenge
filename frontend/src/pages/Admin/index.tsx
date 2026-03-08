@@ -25,7 +25,10 @@ export default function Admin() {
   const [showIntroButton, setShowIntroButton] = useState(true);
   const [error, setError] = useState<ErrorState | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<{
+    message: string;
+    type?: "success" | "error";
+  } | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -84,12 +87,20 @@ export default function Admin() {
     });
   }
 
-  async function handleCreateSuccess() {
+  async function handleCreateSuccess(error?: Error) {
+    if (error) {
+      setToast({
+        message: error.message || "Erro ao criar produtor",
+        type: "error",
+      });
+      return;
+    }
     try {
       const data = await producerService.getAll();
       setProducers(sortByScoreDesc(data as Producer[]));
-      setToast("Produtor criado com sucesso");
+      setToast({ message: "Produtor criado com sucesso", type: "success" });
     } catch (err) {
+      setToast({ message: "Erro ao recarregar produtores", type: "error" });
       console.error("Erro ao recarregar produtores:", err);
     }
   }
@@ -98,8 +109,9 @@ export default function Admin() {
     try {
       const data = await producerService.getAll();
       setProducers(sortByScoreDesc(data as Producer[]));
-      setToast("Produtor excluído com sucesso");
+      setToast({ message: "Produtor excluído com sucesso", type: "success" });
     } catch (err) {
+      setToast({ message: "Erro ao recarregar produtores", type: "error" });
       console.error("Erro ao recarregar produtores:", err);
     }
   }, []);
@@ -242,7 +254,13 @@ export default function Admin() {
         />
       )}
 
-      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }
