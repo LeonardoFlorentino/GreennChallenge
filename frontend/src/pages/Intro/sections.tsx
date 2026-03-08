@@ -197,7 +197,7 @@ export function IntroOverviewSection({
 
 export function IntroVideoSection() {
   return (
-    <section className="intro-video rounded-2xl border border-red-200/20 bg-slate-950/45 p-4 backdrop-blur sm:p-5">
+    <section className="intro-video rounded-2xl border border-red-200/20 bg-slate-950/45 p-2.5 backdrop-blur sm:p-3">
       <div className="flex items-center gap-2">
         <Bug className="h-[25px] w-[25px] shrink-0 text-slate-300/70" />
         <p className="text-sm font-semibold tracking-wide text-slate-100/90">
@@ -230,7 +230,7 @@ export function IntroVideoSection() {
         2026.
       </p>
 
-      <div className="mx-auto mt-4 w-full rounded-xl border border-white/10 bg-black/40 p-2">
+      <div className="mt-3 w-full rounded-xl border border-white/10 bg-black/40 p-1">
         <video
           className="aspect-video w-full rounded-lg object-contain"
           autoPlay
@@ -265,7 +265,7 @@ export function IntroSolutionsSection() {
     <section className="intro-solutions rounded-2xl border border-emerald-200/20 bg-slate-950/45 p-4 backdrop-blur sm:p-5">
       <div className="flex items-center gap-2">
         <CheckCircle className="h-[18px] w-[18px] shrink-0 text-emerald-200/70" />
-        <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
+        <p className="intro-section-title text-sm font-semibold tracking-wide text-emerald-200/85">
           Soluções implementadas
         </p>
       </div>
@@ -276,7 +276,7 @@ export function IntroSolutionsSection() {
             className="flex items-start gap-2.5 rounded-xl border border-white/12 bg-slate-900/40 px-3 py-2"
           >
             <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300/60" />
-            <span className="text-[15px] leading-relaxed text-slate-100/90">
+            <span className="intro-section-item-text text-[15px] leading-relaxed text-slate-100/90">
               {item.text}
             </span>
           </div>
@@ -291,18 +291,18 @@ export function IntroResultsSection() {
     <section className="intro-results rounded-2xl border border-emerald-200/15 bg-emerald-950/25 p-4 backdrop-blur sm:p-6">
       <div className="flex items-center gap-2">
         <Sparkles className="h-[18px] w-[18px] shrink-0 text-emerald-200/70" />
-        <p className="text-sm font-semibold tracking-wide text-emerald-200/85">
+        <p className="intro-section-title text-sm font-semibold tracking-wide text-emerald-200/85">
           Competências fullstack demonstradas
         </p>
       </div>
-      <ul className="mt-4 grid gap-2 text-[15px] leading-relaxed text-emerald-50/90">
+      <ul className="intro-results-list mt-4 grid gap-2 text-[15px] leading-relaxed text-emerald-50/90">
         {achievements.map((item) => (
           <li
             key={item.text}
             className="flex items-start gap-2.5 rounded-lg border border-white/10 bg-slate-950/20 px-3 py-2"
           >
             <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300/65" />
-            <span>{item.text}</span>
+            <span className="intro-section-item-text">{item.text}</span>
           </li>
         ))}
       </ul>
