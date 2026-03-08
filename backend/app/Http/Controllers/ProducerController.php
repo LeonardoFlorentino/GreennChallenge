@@ -65,6 +65,7 @@ class ProducerController extends Controller
             'status' => [$required, 'in:active,inactive'],
             'commission' => [$required, 'integer', 'min:0', 'max:100'],
             'imageUrl' => [$required, 'url', 'max:2048'],
+            'image_url_has_name' => [$required, 'boolean'],
             'followers_instagram' => [$required, 'integer', 'min:0'],
             'is_trending' => [$required, 'boolean'],
             'category' => [$required, 'string', 'max:255'],
