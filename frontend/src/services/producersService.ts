@@ -54,7 +54,24 @@ export const producerService = {
     });
 
     if (!response.ok) {
-      throw new Error("Erro ao criar produtor");
+      let backendMsg = "";
+      try {
+        // Tenta extrair mensagem detalhada do backend
+        const contentType = response.headers.get("content-type") || "";
+        if (contentType.includes("application/json")) {
+          const data = await response.json();
+          if (data && data.message) backendMsg = data.message;
+          else if (typeof data === "string") backendMsg = data;
+          else if (typeof data === "object") backendMsg = JSON.stringify(data);
+        } else {
+          backendMsg = await response.text();
+        }
+      } catch {}
+      throw new Error(
+        backendMsg && backendMsg !== "[object Object]"
+          ? `Erro ao criar produtor: ${backendMsg}`
+          : "Erro ao criar produtor",
+      );
     }
 
     const createdProducer = await response.json();

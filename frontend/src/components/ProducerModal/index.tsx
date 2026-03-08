@@ -28,6 +28,9 @@ const initialProducerState = (producer: Producer | null | undefined) => ({
     followers_instagram: 0,
     relevance_score: 0,
     is_trending: false,
+    image_url_has_name: false,
+    direct_skyrocketing_sales: false,
+    indirect_skyrocketing_sales: false,
     category: "",
     direct_sales_last_year: 0,
     indirect_sales_last_year: 0,
@@ -111,40 +114,81 @@ export function ProducerModal({
     if (Object.keys(validationErrors).length > 0) {
       dispatch({ type: "SET_ERRORS", value: validationErrors });
       dispatch({ type: "SET_SHOW_ERRORS", value: true });
+      // Monta mensagem detalhada para o toast
+      const errorList = Object.entries(validationErrors)
+        .map(([field, msg]) => `<li style='margin-bottom:2px'>${msg}</li>`)
+        .join("");
+      const errorMsg = `Não foi possível salvar. Corrija os seguintes campos obrigatórios:<ul style='margin-top:8px;margin-left:18px;list-style:disc'>${errorList}</ul>`;
+      if (typeof window !== "undefined" && window.setToast) {
+        window.setToast({ message: errorMsg, type: "error", isHtml: true });
+      }
+      // fallback: dispara evento customizado para Admin
+      const event = new CustomEvent("producer-modal-error", {
+        detail: { message: errorMsg, type: "error", isHtml: true },
+      });
+      window.dispatchEvent(event);
       return;
     }
     dispatch({ type: "SET_SHOW_ERRORS", value: false });
     dispatch({ type: "SET_ERRORS", value: {} });
     try {
       dispatch({ type: "SET_LOADING", value: true });
-      // Remove campos vazios do payload
+      // Remove campos vazios do payload, mas mantém booleanos explicitamente false
       const payload = Object.fromEntries(
         Object.entries(state.localData).filter(
-          ([, v]) => v !== undefined && v !== null && v !== "",
+          ([, v]) =>
+            v !== undefined &&
+            (typeof v === "boolean" || (v !== null && v !== "")),
         ),
       );
       if (producer?.id) {
         await producerService.update(producer.id, payload);
-        onSuccess();
+        onSuccess(undefined, "Produtor atualizado com sucesso");
         onClose();
       } else {
+        console.log("[SALVAR PRODUTOR] Payload enviado:", payload);
         await producerService.create(payload);
-        onSuccess();
+        onSuccess(undefined, "Produtor criado com sucesso");
         onClose();
       }
     } catch (error: any) {
       let errorMsg = "Erro ao criar produtor";
+      let backendObj: any = null;
       if (error instanceof Error) {
-        errorMsg = error.message;
-      }
-      // Se for um erro de fetch, tente extrair mais detalhes
-      if (error && error.response) {
+        // Tenta extrair JSON do erro
         try {
-          const text = await error.response.text();
-          errorMsg += `: ${text}`;
+          backendObj = JSON.parse(
+            error.message.replace(/^Erro ao criar produtor: /, ""),
+          );
         } catch {}
+        if (
+          backendObj &&
+          typeof backendObj === "object" &&
+          backendObj.mensagem
+        ) {
+          errorMsg = backendObj.mensagem;
+          if (backendObj.erros && typeof backendObj.erros === "object") {
+            const errorList = Object.entries(backendObj.erros)
+              .map(
+                ([field, msgs]) =>
+                  `• ${Array.isArray(msgs) ? msgs.join(" ") : msgs}`,
+              )
+              .join("\n");
+            errorMsg += `\n${errorList}`;
+          }
+        } else {
+          errorMsg = error.message;
+        }
       }
-      onSuccess(new Error(errorMsg));
+      // Exibe erro detalhado no toast
+      if (typeof window !== "undefined" && window.setToast) {
+        window.setToast({ message: errorMsg, type: "error" });
+      }
+      // fallback: dispara evento customizado para Admin
+      const event = new CustomEvent("producer-modal-error", {
+        detail: errorMsg,
+      });
+      window.dispatchEvent(event);
       // Não fecha a modal em caso de erro
       console.error("Erro ao salvar produtor:", error);
     } finally {

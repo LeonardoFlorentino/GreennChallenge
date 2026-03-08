@@ -20,6 +20,16 @@ interface ErrorState {
 }
 
 export default function Admin() {
+  // Ouve erros detalhados da modal para exibir no toast
+  useEffect(() => {
+    function handleModalError(e: Event) {
+      const { message, type, isHtml } = (e as CustomEvent).detail || {};
+      setToast({ message, type, isHtml });
+    }
+    window.addEventListener("producer-modal-error", handleModalError);
+    return () =>
+      window.removeEventListener("producer-modal-error", handleModalError);
+  }, []);
   const [producers, setProducers] = useState<Producer[]>([]);
   const [loading, setLoading] = useState(true);
   const [showIntroButton, setShowIntroButton] = useState(true);
@@ -89,9 +99,12 @@ export default function Admin() {
 
   async function handleCreateSuccess(error?: Error) {
     if (error) {
+      // Se a mensagem contém tags HTML, ativa isHtml
+      const isHtml = /<\/?[a-z][\s\S]*>/i.test(error.message || "");
       setToast({
         message: error.message || "Erro ao criar produtor",
         type: "error",
+        isHtml,
       });
       return;
     }
@@ -259,6 +272,7 @@ export default function Admin() {
           message={toast.message}
           type={toast.type}
           onClose={() => setToast(null)}
+          isHtml={toast.isHtml}
         />
       )}
     </div>

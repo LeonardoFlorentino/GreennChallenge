@@ -14,19 +14,21 @@ export function Toast({
   onClose,
   duration = 4000,
   type = "success",
-}: Props) {
+  isHtml = false,
+}: Props & { isHtml?: boolean }) {
   const [visible, setVisible] = useState(false);
+
+  // Se a mensagem for longa, aumenta a duração para 10s
+  const effectiveDuration = message && message.length >= 120 ? 10000 : duration;
 
   useEffect(() => {
     requestAnimationFrame(() => setVisible(true));
-
     const timer = setTimeout(() => {
       setVisible(false);
       setTimeout(onClose, 300);
-    }, duration);
-
+    }, effectiveDuration);
     return () => clearTimeout(timer);
-  }, [duration, onClose]);
+  }, [effectiveDuration, onClose]);
 
   return (
     <div
@@ -45,7 +47,9 @@ export function Toast({
         backdrop-blur-sm
         transition-all duration-300
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
+        w-full max-w-[95vw] md:max-w-[30vw]
       `}
+      style={{ wordBreak: "break-word" }}
     >
       {type === "error" ? (
         <svg
@@ -66,7 +70,11 @@ export function Toast({
       ) : (
         <CheckCircle size={18} className="text-emerald-400 shrink-0" />
       )}
-      <span>{message}</span>
+      {isHtml ? (
+        <span dangerouslySetInnerHTML={{ __html: message }} />
+      ) : (
+        <span>{message}</span>
+      )}
       <button
         onClick={() => {
           setVisible(false);

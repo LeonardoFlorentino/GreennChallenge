@@ -1,10 +1,8 @@
 function validateFields(data: Partial<Producer>) {
   const newErrors: Record<string, string> = {};
-  if (!data.name || !data.name.trim()) newErrors.name = "Nome é obrigatório";
-  if (!data.email || !data.email.trim())
-    newErrors.email = "E-mail é obrigatório";
-  if (!data.document || !data.document.trim())
-    newErrors.document = "Documento é obrigatório";
+  if (!data.name || !data.name.trim()) newErrors.name = "Nome";
+  if (!data.email || !data.email.trim()) newErrors.email = "E-mail";
+  if (!data.document || !data.document.trim()) newErrors.document = "Documento";
   // Os campos abaixo não são mais obrigatórios:
   // commission, followers_instagram, imageUrl, category
   return newErrors;
@@ -94,44 +92,64 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           className="w-full bg-transparent outline-none"
         />
       </Field>
-      <div className={`status-field ${statusOpen ? "open" : ""}`}>
-        <Field label="Status">
-          <div className="status-select" ref={statusRef}>
-            <button
-              type="button"
-              className={`status-select-trigger ${statusOpen ? "is-open" : ""}`}
-              onClick={() => setStatusOpen((prev) => !prev)}
-              aria-haspopup="listbox"
-              aria-expanded={statusOpen}
-            >
-              <span>{statusLabel}</span>
-              <span className="status-select-right">
-                <span className="status-select-divider" />
-                <span
-                  className={`status-select-chevron ${statusOpen ? "open" : ""}`}
-                />
-              </span>
-            </button>
-            {statusOpen && (
-              <div className="status-select-menu" role="listbox">
-                {availableStatusOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    role="option"
-                    aria-selected={false}
-                    className="status-select-option"
-                    onClick={() => {
-                      handleChange("status", option.value);
-                      setStatusOpen(false);
-                    }}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className={`status-field ${statusOpen ? "open" : ""}`}>
+          <Field label="Status">
+            <div className="status-select" ref={statusRef}>
+              <button
+                type="button"
+                className={`status-select-trigger ${statusOpen ? "is-open" : ""}`}
+                onClick={() => setStatusOpen((prev) => !prev)}
+                aria-haspopup="listbox"
+                aria-expanded={statusOpen}
+              >
+                <span>{statusLabel}</span>
+                <span className="status-select-right">
+                  <span className="status-select-divider" />
+                  <span
+                    className={`status-select-chevron ${statusOpen ? "open" : ""}`}
+                  />
+                </span>
+              </button>
+              {statusOpen && (
+                <div className="status-select-menu" role="listbox">
+                  {availableStatusOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      role="option"
+                      aria-selected={false}
+                      className="status-select-option"
+                      onClick={() => {
+                        handleChange("status", option.value);
+                        setStatusOpen(false);
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </Field>
+        </div>
+        <Field
+          label="Valor da última venda (R$)"
+          error={showErrors ? localErrors.last_sale_value : undefined}
+        >
+          <input
+            type="text"
+            value={
+              localData.last_sale_value !== undefined
+                ? localData.last_sale_value.toLocaleString("pt-BR")
+                : ""
+            }
+            onChange={(e) => {
+              const numericValue = Number(e.target.value.replace(/\D/g, ""));
+              handleChange("last_sale_value", numericValue);
+            }}
+            className="w-full bg-transparent outline-none"
+          />
         </Field>
       </div>
       <Field label="E-mail" error={showErrors ? localErrors.email : undefined}>
@@ -297,6 +315,24 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           />
         </Field>
       </div>
+      <Field
+        label="Valor da última venda (R$)"
+        error={showErrors ? localErrors.last_sale_value : undefined}
+      >
+        <input
+          type="text"
+          value={
+            localData.last_sale_value !== undefined
+              ? localData.last_sale_value.toLocaleString("pt-BR")
+              : ""
+          }
+          onChange={(e) => {
+            const numericValue = Number(e.target.value.replace(/\D/g, ""));
+            handleChange("last_sale_value", numericValue);
+          }}
+          className="w-full bg-transparent outline-none"
+        />
+      </Field>
     </div>
   );
 });
