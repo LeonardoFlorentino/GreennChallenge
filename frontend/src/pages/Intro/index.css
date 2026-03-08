@@ -819,7 +819,7 @@
   }
 
   .intro-overview-title {
-    font-size: clamp(2rem, 1.9vw, 2.8rem);
+    font-size: clamp(2.7rem, 2.4vw, 3.4rem);
   }
 
   .intro-overview-lead {
@@ -846,11 +846,11 @@
 
   .intro-overview-grid {
     display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(210px, 3fr);
+    grid-template-columns: minmax(0, 6fr) minmax(210px, 4fr);
     grid-template-areas:
       "main_content planetary_orbit"
       "secondary_content secondary_content";
-    align-items: center;
+    align-items: flex-start;
     height: 100%;
     flex: 1;
   }
@@ -954,9 +954,13 @@
     padding-bottom: 0.45rem;
   }
 
+  .intro-overview-title {
+    font-size: clamp(2.6rem, 2.35vw, 3.3rem);
+  }
+
   .intro-overview-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.7fr) minmax(230px, 0.72fr);
+    grid-template-columns: minmax(0, 6fr) minmax(230px, 4fr);
     grid-template-areas:
       "main_content planetary_orbit"
       "secondary_content secondary_content";
@@ -967,7 +971,11 @@
   .intro-overview-orbit {
     grid-area: planetary_orbit;
     justify-self: center;
-    align-self: center;
+    align-self: start;
+  }
+
+  .intro-overview-orbit .tech-orbit {
+    transform: scale(1.2);
   }
 
   .intro-video video {
