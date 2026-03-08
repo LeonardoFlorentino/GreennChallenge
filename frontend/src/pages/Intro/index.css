@@ -260,13 +260,23 @@
     grid-template-columns: 1fr;
     grid-template-areas:
       "main_content"
+      "planetary_orbit"
       "secondary_content";
     gap: 1rem;
+    align-items: center;
   }
 
   .intro-overview-content,
   .intro-overview-details {
     min-width: 0;
+  }
+
+  .intro-overview-orbit {
+    grid-area: planetary_orbit;
+    max-width: 150px;
+    width: 100%;
+    justify-self: center;
+    align-self: center;
   }
 
   .intro-overview-brand {
@@ -277,10 +287,6 @@
   .intro-overview-brand-label {
     font-size: 0.74rem;
     letter-spacing: 0.12em;
-  }
-
-  .intro-overview-orbit {
-    display: none;
   }
 
   .intro-overview-title {
@@ -451,7 +457,7 @@
 }
 
 /* xl */
-@media (min-width: 1280px) and (max-width: 1365px) {
+@media (min-width: 1280px) and (max-width: 1535px) {
   .intro-layout {
     grid-template-columns: minmax(0, 1.45fr) minmax(360px, 1fr);
     grid-template-areas:
@@ -482,7 +488,7 @@
 }
 
 /* 2xl */
-@media (min-width: 1366px) and (max-width: 1535px) {
+/* @media (min-width: 1366px) and (max-width: 1535px) {
   .intro-layout {
     grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
     grid-template-areas:
@@ -526,7 +532,7 @@
     flex: 0 0 auto;
     min-height: auto;
   }
-}
+} */
 
 /* 2xl compact tuning: optimize readability and avoid visual dead zones around 1700px */
 @media (min-width: 1536px) and (max-width: 2364px) {
@@ -598,44 +604,77 @@
 /* 1536-1650px: independent left/right stacks + full-width tech row */
 @media (min-width: 1536px) and (max-width: 1899px) {
   .intro-layout {
-    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas:
-      "left_column right_column"
-      "used_technologies right_column";
+      "overview overview"
+      "video cluster"
+      "video cluster"
+      "tech tech";
     align-items: start;
-    gap: 1.2rem;
-  }
-
-  .intro-column {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    min-height: 0;
   }
 
   .intro-column-left {
-    grid-area: left_column;
+    display: contents;
+  }
+
+  .intro-overview {
+    grid-area: overview;
+  }
+
+  .intro-overview-grid {
+    grid-template-columns: minmax(0, 1.6fr) minmax(200px, 0.8fr);
+    grid-template-areas:
+      "main_content planetary_orbit"
+      "secondary_content planetary_orbit";
+    align-items: center;
+  }
+
+  .intro-overview-orbit {
+    grid-area: planetary_orbit;
+    max-width: 250px;
+    width: 100%;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .intro-overview-orbit .tech-orbit {
+    max-width: 250px;
+    width: 250px;
+    height: 250px;
   }
 
   .intro-column-right {
-    grid-area: right_column;
-    grid-row: 1 / -1;
+    display: contents;
   }
 
-  .intro-video,
-  .intro-solutions,
-  .intro-results {
-    flex: 0 0 auto;
-    min-height: auto;
-    height: auto;
+  .intro-video {
+    grid-area: video;
+    grid-row: 2 / 4;
+    min-width: 0;
     align-self: stretch;
   }
 
-  .intro-tech {
-    grid-area: used_technologies;
-    min-height: 0;
+  .intro-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    grid-area: cluster;
+    grid-row: 2 / 4;
+    min-width: 0;
     align-self: start;
+  }
+
+  .intro-solutions,
+  .intro-results {
+    min-width: 0;
+  }
+
+  .intro-tech {
+    grid-area: tech;
+    grid-row: 4;
+    min-width: 0;
   }
 }
 
