@@ -24,7 +24,7 @@ return function (Exceptions $exceptions) {
             'tipo' => 'validation',
             'rota' => $request->path(),
             'erros' => $e->errors(),
-        ], 422);
+        ], 422, [], JSON_UNESCAPED_UNICODE);
     });
 
     // Modelo não encontrado
