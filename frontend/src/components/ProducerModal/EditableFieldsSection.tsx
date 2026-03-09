@@ -2,6 +2,8 @@ function validateFields(data: Partial<Producer>) {
   const newErrors: Record<string, string> = {};
   if (!data.name || !data.name.trim()) newErrors.name = "Nome";
   if (!data.email || !data.email.trim()) newErrors.email = "E-mail";
+  if (!data.imageUrl || !data.imageUrl.trim())
+    newErrors.imageUrl = "Imagem (URL)";
   if (!data.document || !data.document.trim()) newErrors.document = "Documento";
   // Os campos abaixo não são mais obrigatórios:
   // commission, followers_instagram, imageUrl, category
@@ -140,7 +142,7 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           <input
             type="text"
             value={
-              localData.last_sale_value !== undefined
+              localData.last_sale_value != null
                 ? localData.last_sale_value.toLocaleString("pt-BR")
                 : ""
             }
@@ -157,6 +159,17 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           type="email"
           value={localData.email ?? ""}
           onChange={(e) => handleChange("email", e.target.value)}
+          className="w-full bg-transparent outline-none"
+        />
+      </Field>
+      <Field
+        label="Imagem (URL)"
+        error={showErrors ? localErrors.imageUrl : undefined}
+      >
+        <input
+          type="text"
+          value={localData.imageUrl ?? ""}
+          onChange={(e) => handleChange("imageUrl", e.target.value)}
           className="w-full bg-transparent outline-none"
         />
       </Field>
@@ -204,7 +217,7 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           <input
             type="text"
             value={
-              localData.followers_instagram !== undefined
+              localData.followers_instagram != null
                 ? localData.followers_instagram.toLocaleString("pt-BR")
                 : ""
             }
@@ -315,24 +328,6 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           />
         </Field>
       </div>
-      <Field
-        label="Valor da última venda (R$)"
-        error={showErrors ? localErrors.last_sale_value : undefined}
-      >
-        <input
-          type="text"
-          value={
-            localData.last_sale_value !== undefined
-              ? localData.last_sale_value.toLocaleString("pt-BR")
-              : ""
-          }
-          onChange={(e) => {
-            const numericValue = Number(e.target.value.replace(/\D/g, ""));
-            handleChange("last_sale_value", numericValue);
-          }}
-          className="w-full bg-transparent outline-none"
-        />
-      </Field>
     </div>
   );
 });

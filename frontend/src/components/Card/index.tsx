@@ -14,14 +14,16 @@ export const Card = ({ producer }: CardProps) => {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Gradiente inferior */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-      {/* Nome */}
+      {/* Gradiente inferior só se o nome for renderizado digitalmente */}
       {producer.image_url_has_name !== true && (
-        <div className="absolute bottom-6 left-6 text-white">
-          <h3 className="text-2xl font-bold leading-tight">{producer.name}</h3>
-        </div>
+        <>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute bottom-6 left-6 text-white text-left">
+            <h3 className="text-2xl font-bold leading-tight whitespace-pre-line text-left">
+              {producer.name.split(" ").join("\n")}
+            </h3>
+          </div>
+        </>
       )}
     </div>
   );

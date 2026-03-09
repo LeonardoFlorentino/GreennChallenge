@@ -1,5 +1,6 @@
 import { useRef, useReducer } from "react";
 import { Medal } from "lucide-react";
+import { ProfileImageCircle } from "./ProfileImageCircle";
 import type { Producer } from "../../types/producer";
 import { EditableFieldsSection } from "./EditableFieldsSection";
 import { producerService } from "../../services/producersService";
@@ -18,25 +19,38 @@ type ProducerWithLegacyDate = Partial<Producer> & {
 const initialProducerState = (producer: Producer | null | undefined) => ({
   loading: false,
   showDeleteConfirm: false,
-  localData: producer ?? {
-    name: "",
-    email: "",
-    document: "",
-    status: "active",
-    commission: 0,
-    imageUrl: "",
-    followers_instagram: 0,
-    relevance_score: 0,
-    is_trending: false,
-    image_url_has_name: false,
-    direct_skyrocketing_sales: false,
-    indirect_skyrocketing_sales: false,
-    category: "",
-    direct_sales_last_year: 0,
-    indirect_sales_last_year: 0,
-    direct_sales_last_month: 0,
-    indirect_sales_last_month: 0,
-  },
+  localData: producer
+    ? {
+        ...producer,
+        commission: producer.commission ?? 0,
+        followers_instagram: producer.followers_instagram ?? 0,
+        relevance_score: producer.relevance_score ?? 0,
+        direct_sales_last_year: producer.direct_sales_last_year ?? 0,
+        indirect_sales_last_year: producer.indirect_sales_last_year ?? 0,
+        direct_sales_last_month: producer.direct_sales_last_month ?? 0,
+        indirect_sales_last_month: producer.indirect_sales_last_month ?? 0,
+        last_sale_value: producer.last_sale_value ?? 0,
+      }
+    : {
+        name: "",
+        email: "",
+        document: "",
+        status: "active",
+        commission: 0,
+        imageUrl: "",
+        followers_instagram: 0,
+        relevance_score: 0,
+        is_trending: false,
+        image_url_has_name: false,
+        direct_skyrocketing_sales: false,
+        indirect_skyrocketing_sales: false,
+        category: "",
+        direct_sales_last_year: 0,
+        indirect_sales_last_year: 0,
+        direct_sales_last_month: 0,
+        indirect_sales_last_month: 0,
+        last_sale_value: 0,
+      },
   showErrors: false,
   errors: {},
 });
@@ -131,8 +145,17 @@ export function ProducerModal({
     try {
       dispatch({ type: "SET_LOADING", value: true });
       // Remove campos vazios do payload, mas mantém booleanos explicitamente false
+      // Garante que imageUrl seja string, nunca null/undefined
+      const safeLocalData = {
+        ...state.localData,
+        imageUrl:
+          state.localData.imageUrl === null ||
+          state.localData.imageUrl === undefined
+            ? ""
+            : state.localData.imageUrl,
+      };
       const payload = Object.fromEntries(
-        Object.entries(state.localData).filter(
+        Object.entries(safeLocalData).filter(
           ([, v]) =>
             v !== undefined &&
             (typeof v === "boolean" || (v !== null && v !== "")),
@@ -216,17 +239,10 @@ export function ProducerModal({
       <div className="bg-gray-900 text-white w-[min(95vw,760px)] max-h-[92vh] overflow-hidden rounded-3xl p-6 sm:p-7 shadow-2xl border border-white/10 flex flex-col">
         <div className="flex items-start justify-between gap-4 mb-5">
           <div className="flex items-start gap-4 min-w-0">
-            {state.localData.imageUrl && (
-              <img
-                src={state.localData.imageUrl}
-                alt={
-                  state.localData.name
-                    ? `Foto de ${state.localData.name}`
-                    : "Foto do produtor"
-                }
-                className="w-16 h-16 rounded-full object-cover shrink-0"
-              />
-            )}
+            <ProfileImageCircle
+              imageUrl={state.localData.imageUrl}
+              name={state.localData.name}
+            />
             <div className="min-w-0">
               <h2 className="text-xl font-bold truncate">
                 {producer ? state.localData.name : "Novo Produtor"}
