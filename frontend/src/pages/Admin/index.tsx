@@ -21,6 +21,11 @@ interface ErrorState {
 }
 
 export default function Admin() {
+  const [toast, setToast] = useState<{
+    message: string;
+    type?: "success" | "error";
+    isHtml?: boolean;
+  } | null>(null);
   // Ouve erros detalhados da modal para exibir no toast
   useEffect(() => {
     function handleModalError(e: Event) {
@@ -36,10 +41,6 @@ export default function Admin() {
   const [showIntroButton, setShowIntroButton] = useState(true);
   const [error, setError] = useState<ErrorState | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [toast, setToast] = useState<{
-    message: string;
-    type?: "success" | "error";
-  } | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -49,14 +50,12 @@ export default function Admin() {
 
         // Cria um timeout para mostrar erro após 10 segundos
         const timeoutId = setTimeout(() => {
-          if (loading) {
-            setError({
-              message:
-                "Não foi possível conectar ao servidor. Tente novamente.",
-              code: "TIMEOUT",
-            });
-            setLoading(false);
-          }
+          setError({
+            message:
+              "Não foi possível conectar ao servidor. Tente novamente.",
+            code: "TIMEOUT",
+          });
+          setLoading(false);
         }, 10000);
 
         const data = await producerService.getAll();
@@ -67,7 +66,7 @@ export default function Admin() {
       } catch (err) {
         const errorCode =
           err instanceof Error && "status" in err
-            ? String((err as any).status)
+            ? String((err as Record<string, unknown>).status)
             : "UNKNOW";
         setError({
           message: "Não foi possível conectar ao servidor. Tente novamente.",
@@ -152,7 +151,7 @@ export default function Admin() {
     } catch (err) {
       const errorCode =
         err instanceof Error && "status" in err
-          ? String((err as any).status)
+          ? String((err as Record<string, unknown>).status)
           : "UNKNOW";
       setError({
         message: "Não foi possível conectar ao servidor. Tente novamente.",

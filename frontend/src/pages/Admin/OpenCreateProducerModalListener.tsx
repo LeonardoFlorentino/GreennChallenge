@@ -6,6 +6,11 @@ interface Props {
 
 export function OpenCreateProducerModalListener({ setShowCreateModal }: Props) {
   useEffect(() => {
+    // Abrir modal automaticamente se sinalizado no localStorage
+    if (localStorage.getItem("openCreateProducerModal") === "1") {
+      setShowCreateModal(true);
+      localStorage.removeItem("openCreateProducerModal");
+    }
     function handleOpenModal() {
       setShowCreateModal(true);
     }

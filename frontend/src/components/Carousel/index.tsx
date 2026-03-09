@@ -4,7 +4,6 @@ import { producerService } from "../../services/producersService";
 import type { Producer } from "../../types/producer";
 import { Card } from "../Card";
 import { SkeletonCard } from "../SkeletonCard";
-import { ConnectionError } from "../ConnectionError";
 
 const sortByScoreDesc = (items: Producer[]) =>
   [...items].sort((a, b) => b.relevance_score - a.relevance_score);
@@ -77,8 +76,9 @@ export const Carousel = ({
     } catch (err) {
       console.error("Erro ao buscar produtores:", err);
       const errorCode =
-        err instanceof Error && "status" in err
-          ? String((err as any).status)
+        err instanceof Error &&
+        typeof (err as { status?: unknown }).status !== "undefined"
+          ? String((err as { status?: unknown }).status)
           : "UNKNOW";
       setError({
         message: "Não foi possível carregar os produtores.",
@@ -90,7 +90,9 @@ export const Carousel = ({
   }
 
   useEffect(() => {
-    fetchProducers();
+    setTimeout(() => {
+      fetchProducers();
+    }, 0);
 
     const handleProducersUpdated = () => {
       fetchProducers();
@@ -187,9 +189,8 @@ export const Carousel = ({
               className="px-8 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
-                window.dispatchEvent(
-                  new CustomEvent("open-create-producer-modal"),
-                );
+                // Sinaliza para abrir modal ao chegar no painel
+                localStorage.setItem("openCreateProducerModal", "1");
                 window.location.href = "/admin";
               }}
             >

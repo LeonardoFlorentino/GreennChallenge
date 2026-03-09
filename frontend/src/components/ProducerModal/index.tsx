@@ -35,7 +35,7 @@ const initialProducerState = (producer: Producer | null | undefined) => ({
         name: "",
         email: "",
         document: "",
-        status: "active",
+        status: "active" as "active" | "inactive",
         commission: 0,
         imageUrl: "",
         followers_instagram: 0,

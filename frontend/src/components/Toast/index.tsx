@@ -47,7 +47,7 @@ export function Toast({
         backdrop-blur-sm
         transition-all duration-300
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
-        w-full max-w-[400px]
+        w-full max-w-[300px]
       `}
       style={{ wordBreak: "break-word" }}
     >
