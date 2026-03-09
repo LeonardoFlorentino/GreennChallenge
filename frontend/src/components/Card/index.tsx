@@ -1,3 +1,4 @@
+import "./index.css";
 import type { Producer } from "../../types/producer";
 
 interface CardProps {
@@ -13,7 +14,7 @@ export const Card = ({ producer }: CardProps) => {
       <img
         src={imageUrl}
         alt={`Foto de ${name}`}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover card-image"
       />
 
       {/* Gradiente inferior só se o nome for renderizado digitalmente */}
