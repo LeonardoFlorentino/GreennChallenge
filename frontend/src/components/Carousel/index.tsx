@@ -89,6 +89,14 @@ export const Carousel = ({ onErrorChange }: CarouselProps) => {
 
   useEffect(() => {
     fetchProducers();
+
+    const handleProducersUpdated = () => {
+      fetchProducers();
+    };
+    window.addEventListener("producers-updated", handleProducersUpdated);
+    return () => {
+      window.removeEventListener("producers-updated", handleProducersUpdated);
+    };
   }, []);
 
   useEffect(() => {

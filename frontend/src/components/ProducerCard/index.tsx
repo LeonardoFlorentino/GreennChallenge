@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Medal, Rocket } from "lucide-react";
+import { User } from "lucide-react";
 import type { Producer } from "../../types/producer";
 import { ProducerModal } from "../ProducerModal";
 import { producerService } from "../../services/producersService";
@@ -58,11 +59,17 @@ export function ProducerCard({ producer, onUpdate, onDelete }: Props) {
           </p>
         </div>
 
-        <img
-          src={producer.imageUrl}
-          alt={producer.name}
-          className="w-20 h-20 aspect-square rounded-full mb-4 object-cover shrink-0"
-        />
+        {producer.imageUrl ? (
+          <img
+            src={producer.imageUrl}
+            alt={producer.name}
+            className="w-20 h-20 aspect-square rounded-full mb-4 object-cover shrink-0"
+          />
+        ) : (
+          <div className="w-20 h-20 mb-4 flex items-center justify-center rounded-full bg-emerald-900/60 border border-emerald-800">
+            <User size={40} className="text-emerald-300" />
+          </div>
+        )}
 
         <h3 className="text-xl font-semibold">{producer.name}</h3>
 

@@ -116,12 +116,9 @@ export function ProducerModal({
       dispatch({ type: "SET_SHOW_ERRORS", value: true });
       // Monta mensagem detalhada para o toast
       const errorList = Object.entries(validationErrors)
-        .map(([field, msg]) => `<li style='margin-bottom:2px'>${msg}</li>`)
+        .map(([, msg]) => `<li style='margin-bottom:2px'>${msg}</li>`)
         .join("");
       const errorMsg = `Não foi possível salvar. Corrija os seguintes campos obrigatórios:<ul style='margin-top:8px;margin-left:18px;list-style:disc'>${errorList}</ul>`;
-      if (typeof window !== "undefined" && window.setToast) {
-        window.setToast({ message: errorMsg, type: "error", isHtml: true });
-      }
       // fallback: dispara evento customizado para Admin
       const event = new CustomEvent("producer-modal-error", {
         detail: { message: errorMsg, type: "error", isHtml: true },
@@ -143,12 +140,14 @@ export function ProducerModal({
       );
       if (producer?.id) {
         await producerService.update(producer.id, payload);
-        onSuccess(undefined, "Produtor atualizado com sucesso");
+        onSuccess();
+        window.dispatchEvent(new Event("producers-updated"));
         onClose();
       } else {
         console.log("[SALVAR PRODUTOR] Payload enviado:", payload);
         await producerService.create(payload);
-        onSuccess(undefined, "Produtor criado com sucesso");
+        onSuccess();
+        window.dispatchEvent(new Event("producers-updated"));
         onClose();
       }
     } catch (error: any) {
@@ -170,7 +169,7 @@ export function ProducerModal({
           if (backendObj.erros && typeof backendObj.erros === "object") {
             const errorList = Object.entries(backendObj.erros)
               .map(
-                ([field, msgs]) =>
+                ([, msgs]) =>
                   `• ${Array.isArray(msgs) ? msgs.join(" ") : msgs}`,
               )
               .join("\n");
@@ -181,9 +180,6 @@ export function ProducerModal({
         }
       }
       // Exibe erro detalhado no toast
-      if (typeof window !== "undefined" && window.setToast) {
-        window.setToast({ message: errorMsg, type: "error" });
-      }
       // fallback: dispara evento customizado para Admin
       const event = new CustomEvent("producer-modal-error", {
         detail: errorMsg,
