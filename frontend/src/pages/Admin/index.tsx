@@ -51,8 +51,7 @@ export default function Admin() {
         // Cria um timeout para mostrar erro após 10 segundos
         const timeoutId = setTimeout(() => {
           setError({
-            message:
-              "Não foi possível conectar ao servidor. Tente novamente.",
+            message: "Não foi possível conectar ao servidor. Tente novamente.",
             code: "TIMEOUT",
           });
           setLoading(false);
