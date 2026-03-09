@@ -86,7 +86,7 @@ class ProducerController extends Controller
             'document' => [$optional, 'string', 'max:50'],
             'status' => [$optional, 'in:active,inactive'],
             'commission' => [$optional, 'integer', 'min:0', 'max:100'],
-            'imageUrl' => [$optional, 'url', 'max:2048'],
+            'imageUrl' => [$required, 'url', 'max:2048'],
             'image_url_has_name' => [$optional, 'boolean'],
             'followers_instagram' => [$optional, 'integer', 'min:0'],
             'is_trending' => [$optional, 'boolean'],
