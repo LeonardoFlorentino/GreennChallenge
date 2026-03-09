@@ -5,9 +5,15 @@ import { NavButton } from "../../components/NavButton";
 
 export default function Home() {
   const [hasError, setHasError] = useState(false);
+  const [hasProducers, setHasProducers] = useState(false);
 
   const handleErrorChange = useCallback((error: boolean) => {
     setHasError(error);
+  }, []);
+
+  // Novo callback para saber se há produtores
+  const handleProducersChange = useCallback((count: number) => {
+    setHasProducers(count > 0);
   }, []);
 
   return (
@@ -27,9 +33,12 @@ export default function Home() {
         </div>
       )}
 
-      <Carousel onErrorChange={handleErrorChange} />
+      <Carousel
+        onErrorChange={handleErrorChange}
+        onProducersChange={handleProducersChange}
+      />
 
-      {!hasError && (
+      {!hasError && hasProducers && (
         <div className="mt-20 flex justify-center">
           <CTAButton href="https://adm.greenn.com.br/registro">
             TAMBÉM QUERO VENDER NA GREENN

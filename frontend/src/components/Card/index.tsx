@@ -5,12 +5,14 @@ interface CardProps {
 }
 
 export const Card = ({ producer }: CardProps) => {
+  const name = producer.name || "Produtor sem nome";
+  const imageUrl = producer.imageUrl || "/greenn-logo-background.webp";
   return (
-    <div className="relative flex-shrink-0 w-72 aspect-[3/4] mr-6 rounded-3xl overflow-hidden">
+    <div className="relative flex-shrink-0 w-72 aspect-[3/4] mr-6 rounded-3xl overflow-hidden ">
       {/* Imagem */}
       <img
-        src={producer.imageUrl}
-        alt={`Foto de ${producer.name}`}
+        src={imageUrl}
+        alt={`Foto de ${name}`}
         className="absolute inset-0 w-full h-full object-cover"
       />
 
@@ -20,7 +22,7 @@ export const Card = ({ producer }: CardProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute bottom-6 left-6 text-white text-left">
             <h3 className="text-2xl font-bold leading-tight whitespace-pre-line text-left">
-              {producer.name.split(" ").join("\n")}
+              {name.split(" ").join("\n")}
             </h3>
           </div>
         </>

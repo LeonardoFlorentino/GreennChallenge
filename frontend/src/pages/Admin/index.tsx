@@ -1,4 +1,5 @@
 ﻿import { useCallback, useEffect, useState } from "react";
+import { OpenCreateProducerModalListener } from "./OpenCreateProducerModalListener";
 import { Plus } from "lucide-react";
 import { producerService } from "../../services/producersService";
 import type { Producer } from "../../types/producer";
@@ -204,7 +205,7 @@ export default function Admin() {
               </p>
             </div>
 
-            {!loading && (
+            {!loading && producers.length > 0 && (
               <button
                 onClick={() => setShowCreateModal(true)}
                 className="
@@ -229,7 +230,11 @@ export default function Admin() {
         )}
 
         <div
-          className={`${error ? "flex items-center justify-center min-h-[calc(100vh-120px)] -mt-16" : "grid gap-8 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]"}`}
+          className={
+            error
+              ? "flex items-center justify-center min-h-[calc(100vh-120px)] -mt-16"
+              : "grid gap-8 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] max-w-full"
+          }
         >
           {error ? (
             <ConnectionError
@@ -237,10 +242,12 @@ export default function Admin() {
               onRetry={handleRetry}
               loading={loading}
             />
-          ) : loading ? (
-            Array.from({ length: 6 }).map((_, i) => (
-              <ProducerCardSkeleton key={i} />
-            ))
+          ) : loading && producers.length === 0 ? (
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 justify-center place-items-center">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <ProducerCardSkeleton key={i} />
+              ))}
+            </div>
           ) : producers.length > 0 ? (
             producers.map((producer) => (
               <ProducerCard
@@ -251,10 +258,34 @@ export default function Admin() {
               />
             ))
           ) : (
-            <div className="col-span-full flex items-center justify-center py-16">
-              <p className="text-lg text-white/60">
+            <div className="col-span-full absolute inset-0 flex flex-col items-center justify-center gap-4 translate-y-[90%]">
+              <svg
+                width="48"
+                height="48"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="text-emerald-400 opacity-80"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4a8 8 0 100 16 8 8 0 000-16zm0 0v8m0 4h.01"
+                />
+              </svg>
+              <p className="text-2xl font-semibold text-white/80 text-center">
                 Nenhum produtor encontrado
               </p>
+              <span className="text-base text-white/50 text-center max-w-xs">
+                Cadastre um produtor para começar a usar o painel.
+              </span>
+              <button
+                onClick={() => setShowCreateModal(true)}
+                className="mt-4 px-8 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer"
+              >
+                Adicionar produtor
+              </button>
             </div>
           )}
         </div>
@@ -266,6 +297,11 @@ export default function Admin() {
           onSuccess={handleCreateSuccess}
         />
       )}
+
+      {/* Ouve evento global para abrir modal de criar produtor (usado pelo carrossel) */}
+      <OpenCreateProducerModalListener
+        setShowCreateModal={setShowCreateModal}
+      />
 
       {toast && (
         <Toast
