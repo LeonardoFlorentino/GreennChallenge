@@ -12,6 +12,9 @@ RUN docker-php-ext-install pdo pdo_sqlite zip
 # habilita mod_rewrite para Laravel
 RUN a2enmod rewrite
 
+# evita warning de ServerName
+RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
+ && a2enconf servername
 # permite uso do .htaccess
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
@@ -31,6 +34,9 @@ RUN composer install --no-dev --optimize-autoloader
 
 # criar banco sqlite (ESSENCIAL para o build)
 RUN mkdir -p database && touch database/database.sqlite
+
+# rodar migrations
+RUN php artisan migrate --force
 
 # limpar cache do Laravel
 RUN php artisan config:clear
