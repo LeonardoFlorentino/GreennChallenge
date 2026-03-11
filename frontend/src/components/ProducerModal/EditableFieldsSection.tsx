@@ -185,7 +185,7 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
         />
       </Field>
       <Field label="Imagem contém nome">
-        <div className="flex items-center">
+        <label className="flex items-center gap-2 cursor-pointer select-none">
           <input
             type="checkbox"
             checked={!!localData.image_url_has_name}
@@ -197,7 +197,7 @@ export const EditableFieldsSection = forwardRef(function EditableFieldsSection(
           <span className="ml-2">
             {localData.image_url_has_name ? "Sim" : "Não"}
           </span>
-        </div>
+        </label>
       </Field>
       <Field label="Trending">
         <label className="flex items-center gap-2">
