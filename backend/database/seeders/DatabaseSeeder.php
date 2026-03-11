@@ -20,10 +20,13 @@ class DatabaseSeeder extends Seeder
             ProducerSeeder::class,
         ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'image_url_has_name' => true,
-        ]);
+
+        if (!User::where('email', 'test@example.com')->exists()) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'image_url_has_name' => true,
+            ]);
+        }
     }
 }

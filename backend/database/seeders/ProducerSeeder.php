@@ -173,8 +173,12 @@ class ProducerSeeder extends Seeder
                 "last_sale_value"           => 185000,     // proporcional
             ],
         ];
+
         foreach ($producers as $producer) {
-            Producer::create($producer);
+            Producer::firstOrCreate(
+                ['email' => $producer['email']], // evita duplicação
+                $producer
+            );
         }
     }
 }
