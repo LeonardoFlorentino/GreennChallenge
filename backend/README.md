@@ -58,26 +58,50 @@ The API will be available at `http://localhost:8000`.
 The score for each producer is calculated using the following formula:
 
 $$
-\begin{align*}
-S_{\text{year}} &= \text{direct\_sales\_last\_year} + \text{indirect\_sales\_last\_year} \\[8pt]
-S_{\text{month}} &= \text{direct\_sales\_last\_month} + \text{indirect\_sales\_last\_month} \\[8pt]
-F &= \text{followers\_instagram} \\[8pt]
-T &=
+S_{year} = direct\_sales\_last\_year + indirect\_sales\_last\_year
+$$
+
+$$
+S_{month} = direct\_sales\_last\_month + indirect\_sales\_last\_month
+$$
+
+$$
+F = followers\_instagram
+$$
+
+$$
+T =
 \begin{cases}
-1 & \text{if } \text{is\_trending} = \text{true} \\
-0 & \text{if } \text{is\_trending} = \text{false}
+1 \text{ if } is\_trending = true \\
+0 \text{ if } is\_trending = false
 \end{cases}
-\\[12pt]
-	ext{score}_{\text{month}} &= \min\left(100,\ \dfrac{S_{\text{month}}}{5\,000\,000} \times 100\right) \\[12pt]
-	ext{score}_{\text{year}} &= \min\left(100,\ \dfrac{S_{\text{year}}}{100\,000\,000} \times 100\right) \\[12pt]
-	ext{score}_{\text{followers}} &= \dfrac{\log_{10}(F + 1)}{\log_{10}(20\,000\,000)} \times 100 \\[12pt]
-	ext{score}_{\text{trending}} &= T \times 100 \\[18pt]
-\boxed{\text{relevance\_score}} &=
-0.30 \times \text{score}_{\text{month}} \\
-&\quad + 0.25 \times \text{score}_{\text{year}} \\
-&\quad + 0.25 \times \text{score}_{\text{followers}} \\
-&\quad + 0.20 \times \text{score}_{\text{trending}}
-\end{align*}
+$$
+
+$$
+score_{month} =
+\min(100, \frac{S_{month}}{5\,000\,000} \times 100)
+$$
+
+$$
+score_{year} =
+\min(100, \frac{S_{year}}{100\,000\,000} \times 100)
+$$
+
+$$
+score_{followers} =
+\frac{\log_{10}(F+1)}{\log_{10}(20\,000\,000)} \times 100
+$$
+
+$$
+score_{trending} = T \times 100
+$$
+
+$$
+\text{relevance}_{\text{score}} =
+0.30\,\text{score}_{\text{month}} +
+0.25\,\text{score}_{\text{year}} +
+0.25\,\text{score}_{\text{followers}} +
+0.20\,\text{score}_{\text{trending}}
 $$
 
 - **Successful deliveries:** Total deliveries completed without issues.
