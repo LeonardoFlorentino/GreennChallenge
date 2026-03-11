@@ -1,5 +1,9 @@
 # Frontend – Greenn Challenge
 
+<a href="https://greennchallenge.up.railway.app/" target="_blank">
+	<img src="https://img.shields.io/badge/railway-frontend-success?logo=railway&labelColor=222&color=43b581" alt="Railway Frontend Deploy" />
+</a>
+
 <p align="center">
 	<b>Modern, modular, and high-performance interface for producer management</b><br/>
 	<img src="https://img.shields.io/badge/React-19.x-61dafb?logo=react"/>
@@ -8,6 +12,24 @@
 	<img src="https://img.shields.io/badge/TailwindCSS-4.x-38bdf8?logo=tailwindcss"/>
 	<img src="https://img.shields.io/badge/React%20Doctor-Approved-brightgreen"/>
 </p>
+
+---
+
+## 📦 Useful Scripts
+
+```bash
+# Install dependencies
+npm install
+
+# Run in development mode
+npm run dev
+
+# Production build
+npm run build
+
+# Project lint
+npm run lint
+```
 
 ---
 
@@ -43,21 +65,6 @@ src/
 
 ---
 
-## 🚀 Technologies Used
-
-<table>
-	<tr>
-		<td align="center"><img src="public/tech-logos/react-logo.png" width="32"/><br/>React</td>
-		<td align="center"><img src="public/tech-logos/typescript-logo.png" width="32"/><br/>TypeScript</td>
-		<td align="center"><img src="public/tech-logos/vitejs-logo.png" width="32"/><br/>Vite</td>
-		<td align="center"><img src="public/tech-logos/tailwind-logo.png" width="32"/><br/>TailwindCSS</td>
-		<td align="center"><img src="public/tech-logos/react-router-logo.png" width="32"/><br/>React Router</td>
-		<td align="center"><img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/rocket.svg" width="32"/><br/>Lucide Icons</td>
-	</tr>
-</table>
-
----
-
 ## 🧪 Testing & Quality
 
 - **React Doctor:**
@@ -66,24 +73,6 @@ src/
 - **ESLint + TypeScript:**
   - Clean, standardized, and safe code
 - **Ready for unit and integration tests**
-
----
-
-## 📦 Useful Scripts
-
-```bash
-# Install dependencies
-npm install
-
-# Run in development mode
-npm run dev
-
-# Production build
-npm run build
-
-# Project lint
-npm run lint
-```
 
 ---
 

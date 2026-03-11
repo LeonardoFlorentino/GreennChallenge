@@ -1,134 +1,54 @@
-# [Greenn](https://greenn.com.br/) Challenge - Carousel Rendering & Performance Refactor
+# [Greenn](https://greenn.com.br/) Challenge
 
-This repository contains a technical proposal created during my
-application process for a full stack position at Greenn.
+<a href="https://greennchallenge.up.railway.app/" target="_blank">
+	<img src="https://img.shields.io/badge/railway-frontend-success?logo=railway&labelColor=222&color=43b581" alt="Railway Frontend Deploy" />
+</a>
+<a href="https://greennchallenge-production.up.railway.app/api/v1/" target="_blank">
+	<img src="https://img.shields.io/badge/railway-backend-success?logo=railway&labelColor=222&color=43b581" alt="Railway Backend Deploy" />
+</a>
 
-While analyzing the carousel component on the official website
-(https://greenn.com.br/), I identified rendering and state consistency
-issues affecting user experience and animation performance.
+## Overview
 
-Instead of only reporting the problems, I chose to reproduce the
-scenario and implement a technically solution using modern React
-architecture.
+<p align="center">
+	<b>To test the application, simply access the deployed frontend at:<br/>
+	<a href="https://greennchallenge.up.railway.app/" target="_blank">https://greennchallenge.up.railway.app/</a></b>
+</p>
 
----
+This repository contains the fullstack technical challenge for Greenn, focused on refactoring and optimizing a carousel component for better rendering, state consistency, and user experience. The project is fully implemented and deployed.
 
-## Problem Context
+<p align="center">
+		<b>Modern, modular, and high-performance fullstack challenge</b><br/>
+		<img src="https://img.shields.io/badge/React-19.x-61dafb?logo=react"/>
+		<img src="https://img.shields.io/badge/TypeScript-5.x-3178c6?logo=typescript"/>
+		<img src="https://img.shields.io/badge/Vite-7.x-646cff?logo=vite"/>
+		<img src="https://img.shields.io/badge/TailwindCSS-4.x-38bdf8?logo=tailwindcss"/>
+		<img src="https://img.shields.io/badge/Laravel-10.x-ff2d20?logo=laravel"/>
+		<img src="https://img.shields.io/badge/PHP-8.x-777bb4?logo=php"/>
+		<img src="https://img.shields.io/badge/Railway-Deployed-43b581?logo=railway"/>
+		<img src="https://img.shields.io/badge/React%20Doctor-Approved-brightgreen"/>
+</p>
 
-The analyzed component is a horizontal carousel responsible for
-displaying people cards.
+## Key Features
 
-During interaction testing (desktop and swipe simulation), the following
-issues were identified:
+- Animated, infinite carousel with ranking and optimized loading
+- Admin panel for producer management (CRUD, search, sort)
+- Real-time validation, feedback, and instant UI updates
+- Responsive, accessible, and high-performance UI
+- Strongly typed, modular, and scalable architecture
+- Full integration between frontend and backend
 
----
+## Visual Highlights
 
-## 1️⃣ Consecutive Duplicate Rendering
+| Page/Feature      | Demo                                                                        |
+| ----------------- | --------------------------------------------------------------------------- |
+| Intro             | ![intro-page](./public/demos/frontend/intro-page.gif)                       |
+| Carousel          | ![carousel](./public/demos/frontend/carousel.gif)                           |
+| Admin Panel       | ![admin](./public/demos/frontend/admin.gif)                                 |
+| Create Producer   | ![create-new-producer](./public/demos/frontend/create-new-producer.gif)     |
+| Edit Producer     | ![edit-producer](./public/demos/frontend/edit-producer.gif)                 |
+| New Producer Flow | ![new-producer-carousel](./public/demos/frontend/new-producer-carousel.gif) |
 
-The carousel may render the same person card sequentially.
-
-This indicates potential problems related to:
-
-- Rotation algorithm
-- Index control logic
-- State mutation
-- Improper key usage in React lists
-
-### Observed behavior
-
-<img src="./public/demos/repeated-user-card-bug.gif" alt="repeated-user-card-bug" width="100%">
-
----
-
-## 2️⃣ Card Merging & Animation Fluidity Degradation
-
-During swipe interaction:
-
-- Cards visually overlap or merge
-- Transition frames lose consistency
-- Animation fluidity drops
-- Interaction responsiveness degrades
-
-### Observed behavior
-
-<img src="./public/demos/carousel-card-merge-and-swipe-lag.gif" alt="carousel-card-merge-and-swipe-lag" width="100%">
-
----
-
-## Funcionalidades Implementadas
-
-### 1. Página de Introdução
-
-Apresentação institucional, overview técnico e destaques do projeto.
-
-<img src="./public/demos/frontend/intro-page.gif" alt="intro-page" width="100%">
-
----
-
-### 2. Carrossel de Produtores (Home)
-
-Carrossel animado, responsivo, com rotação infinita, ordenação por score e carregamento otimizado.
-
-<img src="./public/demos/frontend/carousel.gif" alt="carousel" width="100%">
-
----
-
-### 3. Painel Administrativo
-
-Painel para gestão de produtores, com listagem, ordenação, busca e acesso rápido à criação/edição.
-
-<img src="./public/demos/frontend/admin.gif" alt="admin" width="100%">
-
----
-
-### 4. Cadastro de Novo Produtor
-
-Formulário em modal para criar produtores, com validação, feedback visual e atualização instantânea do carrossel.
-
-<img src="./public/demos/frontend/create-new-producer.gif" alt="create-new-producer" width="100%">
-
----
-
-### 5. Edição de Produtor
-
-Edição inline via modal, com atualização em tempo real e feedback de sucesso/erro.
-
-<img src="./public/demos/frontend/edit-producer.gif" alt="edit-producer" width="100%">
-
----
-
-### 6. Novo Produtor no Carrossel
-
-Demonstração do fluxo completo: cadastro de produtor e exibição imediata no carrossel.
-
-<img src="./public/demos/frontend/new-producer-carousel.gif" alt="new-producer-carousel" width="100%">
-
----
-
-## Destaques Técnicos
-
-- **Frontend:** React + TypeScript + Vite + TailwindCSS
-- **Backend:** Laravel (API RESTful), Eloquent ORM, autenticação, seeders e testes
-- **Integração:** Comunicação assíncrona, tratamento de estados, feedback visual e UX aprimorada
-- **Performance:** Memoização, animações otimizadas, controle de re-render, uso de hooks avançados
-- **Arquitetura:** Separação clara de responsabilidades, componentes reutilizáveis, tipagem forte
-
----
-
-## Resumo Visual das Funcionalidades
-
-| Página/Funcionalidade      | Demonstração                                                                                           |
-| -------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Introdução                 | <img src="./public/demos/frontend/intro-page.gif" alt="intro-page" width="400%">                       |
-| Carrossel de Produtores    | <img src="./public/demos/frontend/carousel.gif" alt="carousel" width="400%">                           |
-| Painel Admin               | <img src="./public/demos/frontend/admin.gif" alt="admin" width="400%">                                 |
-| Criar Novo Produtor        | <img src="./public/demos/frontend/create-new-producer.gif" alt="create-new-producer" width="400%">     |
-| Editar Produtor            | <img src="./public/demos/frontend/edit-producer.gif" alt="edit-producer" width="400%">                 |
-| Novo Produtor no Carrossel | <img src="./public/demos/frontend/new-producer-carousel.gif" alt="new-producer-carousel" width="400%"> |
-
----
-
-## Como rodar o projeto
+## How to Run Locally
 
 ### Frontend
 
@@ -143,108 +63,12 @@ npm run dev
 ```bash
 cd backend
 composer install
-cp .env.example .env # configure o .env conforme necessário
+cp .env.example .env
+php artisan key:generate
 php artisan migrate --seed
 php artisan serve
 ```
 
----
+## About
 
-## Sobre o Projeto
-
-O projeto foi desenvolvido com foco em:
-
-- Experiência do usuário fluida e responsiva
-- Arquitetura escalável e manutenível
-- Integração robusta entre frontend e backend
-- Código limpo, testável e documentado
-
----
-
-## Créditos
-
-Desenvolvido por Leona para o desafio técnico Greenn.
-
-The goal is to rebuild the carousel with focus on:
-
-## Rendering Stability
-
-- Deterministic item rotation
-- Immutable state updates
-- Strict index boundary control
-- Stable `key` strategy
-- Predictable reconciliation behavior
-
----
-
-## Performance Optimization
-
-- `useMemo` and `useCallback` where necessary
-- Component memoization (`React.memo`)
-- Avoid derived state recalculation
-- Transform-based animation (`translate3d`)
-- Reduced layout reflows
-- Avoid synchronous layout reads during animation
-
----
-
-## Architectural Decisions
-
-The implementation will:
-
-- Separate carousel logic from presentation layer
-- Encapsulate rotation algorithm
-- Avoid mutation-based array operations
-- Use controlled animation state
-- Ensure single source of truth
-
----
-
-## Engineering Goals
-
-- Zero consecutive duplicate cards
-- Consistent frame rendering
-- Smooth swipe experience
-- Predictable component lifecycle
-- Clean, scalable component structure
-
----
-
-# Stack
-
-Developed using:
-
-- React
-- Vite
-- TypeScript
-- Modern CSS with hardware-accelerated transitions
-- Strict component isolation
-
----
-
-# Development Roadmap
-
-- [x] Problem identification
-- [x] Visual documentation
-- [ ] Algorithm definition
-- [ ] Controlled carousel implementation
-- [ ] Performance validation
-- [ ] Before vs After comparison
-- [ ] Technical conclusion
-
----
-
-# Objective
-
-This project is not only a UI refactor.
-
-It is a demonstration of:
-
-- React rendering knowledge
-- Performance awareness
-- State control discipline
-- UI architecture decisions
-- Production-oriented thinking
-
-The final implementation and metrics comparison will be added upon
-completion.
+This project was developed by Leonardo Florentino Fernandes as a self-proposed technical challenge inspired by the Greenn stack, aiming for the following position: [Fullstack Developer (Laravel & React) at Bluee](https://vagas.solides.com.br/vaga/771877/desenvolvedor28a29-fullstack-pleno-28laravel-e-react29-bluee). The challenge and solution were entirely designed and implemented by the author, not by the company. It demonstrates advanced React rendering, performance optimization, and robust fullstack integration between Laravel and React. Special attention was given to clean, scalable architecture, maintainable code, and a seamless user experience, reflecting production-level standards throughout the application.

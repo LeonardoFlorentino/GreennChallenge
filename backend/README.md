@@ -1,20 +1,17 @@
 # Backend – Greenn Challenge
 
-RESTful API built with Laravel for producer management, authentication, ranking, and integration with the React frontend.
+<a href="https://greennchallenge-production.up.railway.app/api/v1/" target="_blank">
+	<img src="https://img.shields.io/badge/railway-backend-success?logo=railway&labelColor=222&color=43b581" alt="Railway Backend Deploy" />
+</a>
 
----
-
-## 🛠️ Technologies Used
-
-<table>
-	<tr>
-		<td align="center"><img src="../frontend/public/tech-logos/php-logo.png" width="40"/><br/>PHP 8.x</td>
-		<td align="center"><img src="../frontend/public/tech-logos/laravel-logo.png" width="40"/><br/>Laravel 10</td>
-		<td align="center"><img src="../frontend/public/tech-logos/eloquentORM-logo.png" width="100"/><br/>Eloquent ORM</td>
-		<td align="center"><img src="../frontend/public/tech-logos/sanctum-logo.png" width="100"/><br/>Sanctum</td>
-		<td align="center"><img src="../frontend/public/tech-logos/phpunit-logo.png" width="100"/><br/>PHPUnit</td>
-	</tr>
-</table>
+<p align="center">
+	<b>Robust, scalable, and high-performance backend for producer management</b><br/>
+	<img src="https://img.shields.io/badge/Laravel-10.x-ff2d20?logo=laravel"/>
+	<img src="https://img.shields.io/badge/PHP-8.x-777bb4?logo=php"/>
+	<img src="https://img.shields.io/badge/Eloquent%20ORM-ActiveRecord-4B5563?logo=laravel"/>
+	<img src="https://img.shields.io/badge/Sanctum-Auth-4B5563?logo=laravel"/>
+	<img src="https://img.shields.io/badge/PHPUnit-Test-4B5563?logo=php"/>
+</p>
 
 ---
 
