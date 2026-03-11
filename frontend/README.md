@@ -1,100 +1,93 @@
-<div align="center">
-	<img src="../public/tech-logos/react-logo.png" alt="React" width="60"/>
-	<img src="../public/tech-logos/typescript-logo.png" alt="TypeScript" width="60"/>
-	<img src="../public/tech-logos/vitejs-logo.png" alt="Vite" width="60"/>
-	<img src="../public/tech-logos/tailwind-logo.png" alt="TailwindCSS" width="60"/>
-</div>
-
-# Frontend – Green Challenge
+# Frontend – Greenn Challenge
 
 <p align="center">
-	<b>Interface moderna, modular e performática para gestão de produtores</b><br/>
+	<b>Modern, modular, and high-performance interface for producer management</b><br/>
 	<img src="https://img.shields.io/badge/React-19.x-61dafb?logo=react"/>
 	<img src="https://img.shields.io/badge/TypeScript-5.x-3178c6?logo=typescript"/>
 	<img src="https://img.shields.io/badge/Vite-7.x-646cff?logo=vite"/>
 	<img src="https://img.shields.io/badge/TailwindCSS-4.x-38bdf8?logo=tailwindcss"/>
-	<img src="https://img.shields.io/badge/React%20Doctor-Aprovado-brightgreen"/>
+	<img src="https://img.shields.io/badge/React%20Doctor-Approved-brightgreen"/>
 </p>
 
 ---
 
-## ✨ Características Principais
+## ✨ Main Features
 
-- **Arquitetura modular:**
-  - `components/` – Componentes reutilizáveis (Cards, Carousel, Modal, Toast, etc.)
-  - `pages/` – Páginas (Home, Admin, Intro)
-  - `services/` – Abstração de API e integração
-  - `types/` – Tipos TypeScript fortemente tipados
-  - `styles/` – Estilos globais e customização via TailwindCSS
-- **UI responsiva e acessível**
-- **Animações fluidas e otimizadas**
-- **Integração total com backend REST**
-- **Validação e feedback visual em tempo real**
-- **Estrutura pronta para testes e expansão**
+- **Modular architecture:**
+  - `components/` – Reusable components (Cards, Carousel, Modal, Toast, etc.)
+  - `pages/` – Pages (Home, Admin, Intro)
+  - `services/` – API abstraction and integration
+  - `types/` – Strongly typed TypeScript types
+  - `styles/` – Global styles and TailwindCSS customization
+- **Responsive and accessible UI**
+- **Smooth and optimized animations**
+- **Full integration with REST backend**
+- **Real-time validation and visual feedback**
+- **Ready for testing and expansion**
 
 ---
 
-## 🗂️ Estrutura de Pastas
+## 🗂️ Folder Structure
 
 ```text
 src/
-	components/   # Componentes reutilizáveis
-	pages/        # Páginas principais
-	services/     # Serviços de API
-	types/        # Tipos TypeScript
-	styles/       # Estilos globais
-	routes/       # Rotas da aplicação
-	App.tsx       # Composição principal
-	main.tsx      # Bootstrap do React
+	components/   # Reusable components
+	pages/        # Main pages
+	services/     # API services
+	types/        # TypeScript types
+	styles/       # Global styles
+	routes/       # Application routes
+	App.tsx       # Main composition
+	main.tsx      # React bootstrap
 ```
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
 <table>
 	<tr>
-		<td align="center"><img src="../public/tech-logos/react-logo.png" width="32"/><br/>React</td>
-		<td align="center"><img src="../public/tech-logos/typescript-logo.png" width="32"/><br/>TypeScript</td>
-		<td align="center"><img src="../public/tech-logos/vitejs-logo.png" width="32"/><br/>Vite</td>
-		<td align="center"><img src="../public/tech-logos/tailwind-logo.png" width="32"/><br/>TailwindCSS</td>
-		<td align="center"><img src="../public/tech-logos/react-router-logo.png" width="32"/><br/>React Router</td>
+		<td align="center"><img src="public/tech-logos/react-logo.png" width="32"/><br/>React</td>
+		<td align="center"><img src="public/tech-logos/typescript-logo.png" width="32"/><br/>TypeScript</td>
+		<td align="center"><img src="public/tech-logos/vitejs-logo.png" width="32"/><br/>Vite</td>
+		<td align="center"><img src="public/tech-logos/tailwind-logo.png" width="32"/><br/>TailwindCSS</td>
+		<td align="center"><img src="public/tech-logos/react-router-logo.png" width="32"/><br/>React Router</td>
 		<td align="center"><img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/rocket.svg" width="32"/><br/>Lucide Icons</td>
 	</tr>
 </table>
 
 ---
 
-## 🧪 Testes e Qualidade
+## 🧪 Testing & Quality
 
 - **React Doctor:**
-  - Projeto analisado e aprovado pelo [react-doctor](https://github.com/karanpratapsingh/react-doctor)
-  - Sem problemas críticos de performance, acessibilidade ou arquitetura detectados
+  - Project analyzed and approved by [react-doctor](https://github.com/karanpratapsingh/react-doctor)
+  - No critical performance, accessibility, or architecture issues detected
 - **ESLint + TypeScript:**
-  - Código limpo, padronizado e seguro
-- **Estrutura pronta para testes unitários e de integração**
+  - Clean, standardized, and safe code
+- **Ready for unit and integration tests**
 
 ---
 
-## 📦 Scripts Úteis
+## 📦 Useful Scripts
 
 ```bash
-# Instalar dependências
+# Install dependencies
 npm install
 
-# Rodar em modo desenvolvimento
+# Run in development mode
 npm run dev
 
-# Build de produção
+# Production build
 npm run build
 
-# Lint do projeto
+# Project lint
 npm run lint
 ```
 
 ---
 
-## 🖼️ Elementos Visuais
+## 🖼️ Visual Elements
 
 <p align="center">
 	<img src="../public/demos/frontend/carousel.gif" alt="carousel" width="300">
@@ -104,19 +97,19 @@ npm run lint
 
 ---
 
-## 📋 Especificações Técnicas
+## 📋 Technical Specifications
 
 - React 19.x, TypeScript 5.x, Vite 7.x, TailwindCSS 4.x
-- Modularização total dos componentes e páginas
-- Tipagem forte em toda a aplicação
-- Integração RESTful com backend Laravel
-- Animações CSS otimizadas (hardware-accelerated)
-- Responsividade mobile-first
-- Estrutura de serviços para fácil expansão
-- Código validado por ESLint e React Doctor
+- Full modularization of components and pages
+- Strong typing throughout the application
+- RESTful integration with Laravel backend
+- Optimized CSS animations (hardware-accelerated)
+- Mobile-first responsiveness
+- Service structure for easy expansion
+- Code validated by ESLint and React Doctor
 
 ---
 
-## 👩‍💻 Autoria
+## 👩‍💻 Author
 
-Desenvolvido por Leonardo Florentino Fernades para o desafio técnico Greenn.
+Developed by Leonardo Florentino Fernandes for the Greenn technical challenge.

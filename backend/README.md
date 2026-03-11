@@ -1,59 +1,126 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Backend – Greenn Challenge
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+RESTful API built with Laravel for producer management, authentication, ranking, and integration with the React frontend.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Technologies Used
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<table>
+	<tr>
+		<td align="center"><img src="../frontend/public/tech-logos/php-logo.png" width="40"/><br/>PHP 8.x</td>
+		<td align="center"><img src="../frontend/public/tech-logos/laravel-logo.png" width="40"/><br/>Laravel 10</td>
+		<td align="center"><img src="../frontend/public/tech-logos/eloquentORM-logo.png" width="100"/><br/>Eloquent ORM</td>
+		<td align="center"><img src="../frontend/public/tech-logos/sanctum-logo.png" width="100"/><br/>Sanctum</td>
+		<td align="center"><img src="../frontend/public/tech-logos/phpunit-logo.png" width="100"/><br/>PHPUnit</td>
+	</tr>
+</table>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 How to Run the Backend
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```bash
+cd backend
+composer install
+cp .env.example .env
+# Configure the .env file as needed (database, mail, etc)
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The API will be available at `http://localhost:8000`.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🔑 Authentication
 
-### Premium Partners
+- Uses Laravel Sanctum for token-based authentication.
+- Protected endpoints require the token in the header: `Authorization: Bearer <token>`.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 📚 Main Endpoints
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- `POST /api/login` – Login and obtain token
+- `POST /api/logout` – Logout
+- `GET /api/producers` – List all producers
+- `POST /api/producers` – Create a new producer
+- `PUT /api/producers/{id}` – Update a producer
+- `DELETE /api/producers/{id}` – Delete a producer
+- `GET /api/producers/ranking` – List producers ordered by score
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🏆 Score Calculation
 
-## Security Vulnerabilities
+The score for each producer is calculated using the following formula:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+$$
+\begin{align*}
+S_{\text{year}} &= \text{direct\_sales\_last\_year} + \text{indirect\_sales\_last\_year} \\[8pt]
+S_{\text{month}} &= \text{direct\_sales\_last\_month} + \text{indirect\_sales\_last\_month} \\[8pt]
+F &= \text{followers\_instagram} \\[8pt]
+T &=
+\begin{cases}
+1 & \text{if } \text{is\_trending} = \text{true} \\
+0 & \text{if } \text{is\_trending} = \text{false}
+\end{cases}
+\\[12pt]
+	ext{score}_{\text{month}} &= \min\left(100,\ \dfrac{S_{\text{month}}}{5\,000\,000} \times 100\right) \\[12pt]
+	ext{score}_{\text{year}} &= \min\left(100,\ \dfrac{S_{\text{year}}}{100\,000\,000} \times 100\right) \\[12pt]
+	ext{score}_{\text{followers}} &= \dfrac{\log_{10}(F + 1)}{\log_{10}(20\,000\,000)} \times 100 \\[12pt]
+	ext{score}_{\text{trending}} &= T \times 100 \\[18pt]
+\boxed{\text{relevance\_score}} &=
+0.30 \times \text{score}_{\text{month}} \\
+&\quad + 0.25 \times \text{score}_{\text{year}} \\
+&\quad + 0.25 \times \text{score}_{\text{followers}} \\
+&\quad + 0.20 \times \text{score}_{\text{trending}}
+\end{align*}
+$$
 
-## License
+- **Successful deliveries:** Total deliveries completed without issues.
+- **Average rating:** Average of customer ratings (0 to 5).
+- **Complaints:** Total complaints registered for the producer.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> Adjust the formula above according to your project's real logic!
+
+---
+
+## 🧪 Automated Tests
+
+Run the tests with:
+
+```bash
+php artisan test
+```
+
+Example of successful test output:
+
+```
+ PASS  Tests\Feature\ProducerTest
+ ✓ it lists all producers
+ ✓ it creates a new producer
+ ✓ it updates a producer
+ ✓ it deletes a producer
+ ✓ it calculates the score correctly
+
+ Tests:  5 passed
+ Time:   1.23s
+```
+
+---
+
+## 📄 Structure
+
+- `app/Models/Producer.php` – Main producer model
+- `app/Http/Controllers/ProducerController.php` – Endpoint logic
+- `database/seeders/ProducerSeeder.php` – Example data
+- `routes/api.php` – API routes
+
+---
+
+## 👩‍💻 Author
+
+Developed by Leonardo Florentino Fernandes for the Greenn technical challenge.
