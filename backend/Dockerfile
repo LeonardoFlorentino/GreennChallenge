@@ -15,12 +15,12 @@ RUN a2enmod rewrite
 # permite uso do .htaccess
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
+WORKDIR /var/www/html
+
 COPY . .
 
 # aponta apache para pasta public
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
-
-WORKDIR /var/www/html
 
 # instalar composer
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -29,7 +29,10 @@ RUN curl -sS https://getcomposer.org/installer | php \
 # instalar dependências
 RUN composer install --no-dev --optimize-autoloader
 
-# limpar cache do Laravel (ESSENCIAL em deploy)
+# criar banco sqlite (ESSENCIAL para o build)
+RUN mkdir -p database && touch database/database.sqlite
+
+# limpar cache do Laravel
 RUN php artisan config:clear
 RUN php artisan route:clear
 RUN php artisan cache:clear
@@ -37,5 +40,6 @@ RUN php artisan cache:clear
 # permissões
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/database
 
 EXPOSE 80
