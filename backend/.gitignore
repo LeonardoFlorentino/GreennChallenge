@@ -22,3 +22,11 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# --- Fly.io (Ignorar tudo) ---
+fly.toml
+backend/fly.toml
+.fly/
+backend/.fly/
+.github/workflows/fly-deploy.yml
+backend/.github/workflows/fly-deploy.yml
